@@ -18,6 +18,7 @@
 void remplir ( int T[] , int n ) ;
 void display ( int T[] , int n ) ;
 int choisir ( void ) ;
+void swap(int T[], int indexFirst, int indexSecond);
 
 void tri_echange ( int T[] , int n ) ;
 void tri_insertion ( int T[] , int n ) ;
@@ -63,10 +64,22 @@ int choisir ( void )
 /* -------------------------------------------- */
 
 /* Vos fonctions */
+/**
+ * A function which swap the position in the array
+ * of the elements at indexFirst and indexSecond.
+ **/
+void swap(int T[], int indexFirst, int indexSecond){
+	int temp;
+	temp = T[indexFirst];
+	T[indexFirst] = T[indexSecond];
+	T[indexSecond] = temp;
+}
 
-//DONE
+
+
+//--------------------------------------------------------------DONE
 void tri_echange ( int T[] , int n ){
-	int i,j,minIndex,temp;
+	int i,j,minIndex;
 	
 	for(i=0;i<n;i++){
 		minIndex = i;
@@ -75,107 +88,155 @@ void tri_echange ( int T[] , int n ){
 				minIndex = j;
 			}
 		}
-		temp = T[i];
-		T[i] = T[minIndex];
-		T[minIndex] = temp;
+		swap(T,i,minIndex);
 	}
 }
 
-
-//DONE
+//--------------------------------------------------------------DONE
 void tri_insertion ( int T[] , int n ){
-	int i,j,temp;
+	int i,j;
 	for(i=1;i<n;i++){
 		j=i;
 		while(T[j-1]>T[j] && j>0){
-			temp = T[j-1];
-			T[j-1] = T[j];
-			T[j] = temp;
+			swap(T,j,j-1);
 			j--;
 		}
 	}
 }
+
+//--------------------------------------------------------------TODO
 void tri_shell ( int T[] , int n , int h0 ){
 	
 }
 
 
-//DONE
+//--------------------------------------------------------------DONE
 void tri_bubble ( int T[] , int n ){
-	int swap,i,temp;
+	int doSwap,i;
 	do{
-		swap=0;
+		doSwap=0;
 		for(i=0;i<n-1;i++){
 			if(T[i]>T[i+1]){
-				temp = T[i];
-				T[i] = T[i+1];
-				T[i+1] = temp;
-				swap = 1;
+				swap(T,i,i+1);
+				doSwap = 1;
 			}
 		}
-	}while(swap);
+	}while(doSwap);
 }
 
 
-
+//--------------------------------------------------------------DONE
 void tri_bubble_opt ( int T[] , int n ){
-	int swap,i,minI,temp;
+	int doSwap,i,minI;
 	do{
 		minI = 0;
-		swap=0;
+		doSwap=0;
 		for(i=minI;i<n-1;i++){
 			if(T[i]>T[i+1]){
-				temp = T[i];
-				T[i] = T[i+1];
-				T[i+1] = temp;
-				if(!swap){
-					
-					swap = 1;
+				swap(T,i,i+1);
+				if(!doSwap){
+					doSwap = 1;
 				}
 			}
 		}
 		//ne pas aller jusqu'au bout puisque le dernier de chaque
 		//itération est le max
-		n --;
-	}while(swap);
+		n--;
+	}while(doSwap);
 }
+
+//--------------------------------------------------------------DONE
 void tri_shaker ( int T[] , int n ){
-	int swap,i,temp;
+	int doSwap,i;
 	do{
-		swap=0;
+		doSwap=0;
 		for(i=0;i<n-1;i++){
 			if(T[i]>T[i+1]){
-				temp = T[i];
-				T[i] = T[i+1];
-				T[i+1] = temp;
+				swap(T,i,i+1);
 			}
 		}
 		for(i=n-2;i>=0;i--){
 			if(T[i]>T[i+1]){
-				temp = T[i];
-				T[i] = T[i+1];
-				T[i+1] = temp;
-				swap = 1;
+				swap(T,i,i+1);
+				doSwap = 1;
 			}
 		}
-	}while(swap);
+	}while(doSwap);
 }
 
-//TODO
+//--------------------------------------------------------------DONE
 void tri_quick ( int T[] , int n ){
-	int mid,pivot,i;
-	int result[n];
+	int pivot,i,indexS,indexB;
+	int small[n],big[n];
 
-	pivot = 0;
-	for(i=0;i<n;i++){
+	pivot = T[0];
+	indexB = 0;
+	indexS = 0;
+	for(i=1;i<n;i++){
 		
+		if(T[i]<pivot){
+			small[indexS] = T[i];
+			indexS++;
+		}else{
+			big[indexB] = T[i];
+			indexB++;
+		}		
+	}
+	if(indexS>=2){
+		tri_quick(small, indexS);
+	}
+	if(indexB>=2){
+		tri_quick(big, indexB);
+	}
+
+
+	for(i=0;i<indexS;i++){
+		T[i]=small[i];
+	}
+	T[i]=pivot;
+	i++;
+	for(i=0;i<indexB;i++){
+		T[i+indexS+1]=big[i];
+	}
+}
+
+//--------------------------------------------------------------TODO
+void tri_merge ( int T[] , int n ){
+	int i,j,mid;
+	int low[n],high[n];
+	printf("taille:%d",n);
+
+	if(n == 1){
+		return;
+	}else{
+		mid = n/2;
+		tri_merge(T, mid);
+		tri_merge(T[mid],n-mid);
+
+		i=0;
+		j=0;
+		while(i+j<n){
+			if(i==mid){
+				T[i+j]=high[j];
+				j++;
+			}else if(j==n-mid){
+				T[i+j]=low[i];
+				i++;
+			}else{
+				if(low[i]<=high[j]){
+					T[i+j] = low[i];
+					i++;
+				}else{
+					T[i+j] = high[j];
+					j++;
+				}
+			}
+		}
 	}
 	
-}
-
-//WIP
-void tri_merge ( int T[] , int n ){
-	
+	//milieu
+	//séparation
+	//tri ensemble
 }
 
 /* -------------------------------------------- */
