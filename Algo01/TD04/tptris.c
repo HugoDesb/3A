@@ -1,3 +1,24 @@
+/** 
+ * Polytech Marseille
+ * Case 925 - 163, avenue de Luminy
+ * 13288 Marseille CEDEX 9
+ *
+ * Ce fichier est l'oeuvre d'eleves de Polytech Marseille. Il ne peut etre
+ * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
+ */ 
+
+/**
+ * @author DESBIOLLES Hugo :: hugo.desbiolles@etu.univ-amu.fr>
+ */
+
+
+/**
+ * @file tptris.c
+ * 
+ * File for all exercices of the fourth TP
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,8 +39,9 @@
 void remplir ( int T[] , int n ) ;
 void display ( int T[] , int n ) ;
 int choisir ( void ) ;
-void swap(int T[], int indexFirst, int indexSecond);
 
+
+void swap(int T[], int indexFirst, int indexSecond);
 void tri_echange ( int T[] , int n ) ;
 void tri_insertion ( int T[] , int n ) ;
 void tri_shell ( int T[] , int n , int h0 ) ;
@@ -83,11 +105,13 @@ void tri_echange ( int T[] , int n ){
 	
 	for(i=0;i<n;i++){
 		minIndex = i;
+		//boucle qui cherche le minimum
 		for(j=i+1;j<n;j++){
 			if(T[j]<T[minIndex]){
 				minIndex = j;
 			}
 		}
+		//échange du minimum avec l'élément courant
 		swap(T,i,minIndex);
 	}
 }
@@ -106,7 +130,7 @@ void tri_insertion ( int T[] , int n ){
 
 //--------------------------------------------------------------TODO
 void tri_shell ( int T[] , int n , int h0 ){
-	
+
 }
 
 
@@ -118,7 +142,12 @@ void tri_bubble ( int T[] , int n ){
 		for(i=0;i<n-1;i++){
 			if(T[i]>T[i+1]){
 				swap(T,i,i+1);
-				doSwap = 1;
+				//dans le cas où aucune permutation n'est effectué dans
+				//un balayage, alors doSwap sera égal a 0 --> arrêt de
+				//la boucle while
+				if(!doSwap){
+					doSwap = 1;
+				}
 			}
 		}
 	}while(doSwap);
@@ -129,11 +158,15 @@ void tri_bubble ( int T[] , int n ){
 void tri_bubble_opt ( int T[] , int n ){
 	int doSwap,i,minI;
 	do{
-		minI = 0;
+		minI = 0; //minI sera incrémenté a chaque balayage afin
+		          //de réduire le champ de la boucle
 		doSwap=0;
 		for(i=minI;i<n-1;i++){
 			if(T[i]>T[i+1]){
 				swap(T,i,i+1);
+				//dans le cas où aucune permutation n'est effectué dans
+				//un balayage, alors doSwap sera égal a 0 --> arrêt de
+				//la boucle while
 				if(!doSwap){
 					doSwap = 1;
 				}
@@ -150,11 +183,13 @@ void tri_shaker ( int T[] , int n ){
 	int doSwap,i;
 	do{
 		doSwap=0;
+		//un premier balayage est effectué
 		for(i=0;i<n-1;i++){
 			if(T[i]>T[i+1]){
 				swap(T,i,i+1);
 			}
 		}
+		//le balayage est effectué dans l'autre sens
 		for(i=n-2;i>=0;i--){
 			if(T[i]>T[i+1]){
 				swap(T,i,i+1);
@@ -167,13 +202,17 @@ void tri_shaker ( int T[] , int n ){
 //--------------------------------------------------------------DONE
 void tri_quick ( int T[] , int n ){
 	int pivot,i,indexS,indexB;
-	int small[n],big[n];
+	int small[TAILLE],big[TAILLE];
 
+	//on choisit un pivot aléatoire
+	
 	pivot = T[0];
 	indexB = 0;
 	indexS = 0;
 	for(i=1;i<n;i++){
-		
+
+		//tous les éléments plus petit que le pivot sont insérés dans
+		//small[], les autres dans big[].
 		if(T[i]<pivot){
 			small[indexS] = T[i];
 			indexS++;
@@ -182,14 +221,17 @@ void tri_quick ( int T[] , int n ){
 			indexB++;
 		}		
 	}
-	if(indexS>=2){
+
+	//si small[] et big[] ont plus d'un élément, alors effectuer la
+	//récursivité
+	if(indexS>1){
 		tri_quick(small, indexS);
 	}
-	if(indexB>=2){
+	if(indexB>1){
 		tri_quick(big, indexB);
 	}
 
-
+	//Re-remplissage de T avec les tableaux triés small[] et big[]
 	for(i=0;i<indexS;i++){
 		T[i]=small[i];
 	}
@@ -200,43 +242,55 @@ void tri_quick ( int T[] , int n ){
 	}
 }
 
-//--------------------------------------------------------------TODO
+//--------------------------------------------------------------DONE
 void tri_merge ( int T[] , int n ){
 	int i,j,mid;
-	int low[n],high[n];
-	printf("taille:%d",n);
+	int low[TAILLE],high[TAILLE];
 
-	if(n == 1){
-		return;
-	}else{
+	if(n>1){
 		mid = n/2;
-		tri_merge(T, mid);
-		tri_merge(T[mid],n-mid);
-
+		
+		//Remplissage des tableaux low et high
 		i=0;
 		j=0;
-		while(i+j<n){
-			if(i==mid){
-				T[i+j]=high[j];
-				j++;
-			}else if(j==n-mid){
-				T[i+j]=low[i];
+		for(i=0;i<mid;i++){
+			low[i]=T[i];
+		}
+		for(j=0;i<n;i++){
+			high[j]=T[i];
+			j++;
+		}
+
+		tri_merge(low, mid);
+		tri_merge(high,n-mid);
+
+		
+		
+		//on parcours low et high en ajoutant le minimum a T
+		i=0;//curseur sur low[]
+		j=0;//curseur sur high[]
+		while((i<mid) && (j<n-mid)){
+			//ajouter le min entre low[i] et high[j]
+			if(low[i]<high[j]){
+				T[i+j] = low[i];
 				i++;
 			}else{
-				if(low[i]<=high[j]){
-					T[i+j] = low[i];
-					i++;
-				}else{
-					T[i+j] = high[j];
-					j++;
-				}
+				T[i+j] = high[j];
+				j++;
 			}
 		}
+
+		//Lorsque high[] a été parcouru jusqu'au bout, et pas low[]
+		while(i<mid){
+			T[i+j] = low[i];
+			i++;
+		}
+		//Lorsque low[] a été parcouru jusqu'au bout, et pas high[]
+		while(j<n-mid){
+			T[i+j] = high[j];
+			j++;
+		}
 	}
-	
-	//milieu
-	//séparation
-	//tri ensemble
 }
 
 /* -------------------------------------------- */
