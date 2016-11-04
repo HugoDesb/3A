@@ -75,8 +75,12 @@ int main(void){
 	// infinie (retourne 4,2,1 indéfiniement)
 	/* collatz2(n); */
 
-	printf("Ackermann(2,3,1) = %d\n",);
-	printf()
+	printf("Ackermann(2,3,0) = %d\n",ackermann(2, 3, 0));
+	printf("Ackermann(2,3,1) = %d\n",ackermann(2, 3, 1));
+	printf("Ackermann(2,3,2) = %d\n",ackermann(2, 3, 2));
+	printf("Ackermann(3,3,0) = %d\n",ackermann(3, 3, 0));
+	printf("Ackermann(3,3,1) = %d\n",ackermann(3, 3, 1));
+	printf("Ackermann(3,3,2) = %d\n",ackermann(3, 3, 2));
 
 	
 	return 0;
