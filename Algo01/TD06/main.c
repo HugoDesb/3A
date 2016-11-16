@@ -28,7 +28,7 @@
 typedef struct list{
 	int val;
 	struct list *  next;
-} t_list, *tpl;
+} t_list, * tpl;
 
 
 tpl cree_vide(void);
@@ -40,7 +40,12 @@ tpl creation_liste(tpl l);
 void afficher(tpl l);
 void afficher_liste(tpl l);
 int length(tpl l);
-
+int lengthWhile(tpl l);
+tpl copie(tpl l);
+tpl searchFor(int x, tpl l);
+tpl deleteFirst(int x, tpl l);
+tpl deleteAll(int x, tpl l);
+tpl copieInverse(tpl l);
 
 int main(void){
 
@@ -63,9 +68,9 @@ int main(void){
 	/* printf("queueshouldbefour : %d\n", queueShouldBeFour); */
 
 	//Tests 2ème question
-	l = creation_liste(l);
-	afficher(l);
-
+	/* l = creation_liste(l); */
+	/* afficher(l); */
+	
 	//Tests 3ème question
 	/* l = ajout_liste(5, l); */
 	/* l = ajout_liste(4, l); */
@@ -74,7 +79,39 @@ int main(void){
 	/* l = ajout_liste(1, l); */
 	/* afficher(l); */
 
+	//Tests 4éme question
+	/* l = creation_liste(l); */
+	/* afficher(l); */
+	/* printf("Longueur de la liste (recur) : %d\n",length(l)); */
+	/* printf("Longueur de la liste (while) : %d\n",lengthWhile(l)); */
 
+	//Tests 5éme question
+	/* tpl newL; */
+	/* l=creation_liste(l); */
+	/* newL = copie(l); */
+	/* printf("l : "); */
+	/* afficher(l); */
+	/* printf("newL : "); */
+	/* afficher(newL); */
+
+
+
+	//Tests 6éme question
+	/* l=creation_liste(l); */
+	/* int searchValue = 5; */
+	/* printf("Item found ? %d\n",!est_vide(searchFor(searchValue,l)));	 */
+
+	//Tests 7éme question a)
+	/* l=creation_liste(l); */
+	/* afficher(l); */
+	/* int searchValue = 5; */
+	/* afficher(deleteFirst(searchValue, l)); */
+
+	//Tests 7éme question b)
+	l=creation_liste(l);
+	afficher(l);
+	int searchValue = 5;
+	afficher(deleteAll(searchValue, l));
 	
 	return 0;
 }
@@ -95,6 +132,7 @@ void afficher_liste(tpl l){
 tpl creation_liste(tpl l){
 	int val;
 	do{
+		printf("Entrez une valeur : ");
 		scanf("%d",&val);
 		if(val>=0){
 			l = ajout_liste(val, l);
@@ -124,10 +162,93 @@ tpl queue_liste(tpl l){
 	assert(l);
 	return l->next;
 }
-int length(tlp l){
+int length(tpl l){
 	if(est_vide(l)){
 		return 0;
 	}else{
 		return 1+length(queue_liste(l));
 	}
+}
+int lengthWhile(tpl l){
+	int length = 0;
+	while(!est_vide(l)){
+		length++;
+		l = queue_liste(l);
+	}
+	return length;
+}
+
+tpl copie(tpl l){
+	if(est_vide(l)){
+		return cree_vide();
+	}else{
+		return ajout_liste(tete_liste(l), copie(queue_liste(l)));
+	}
+}
+tpl searchFor(int x, tpl l){
+	if(est_vide(l)){
+		return cree_vide();
+	}else{
+		if(tete_liste(l)==x){
+			return l;
+		}else{
+			return searchFor(x, queue_liste(l));
+		}
+	}
+}
+tpl deleteFirst(int x , tpl l){
+	tpl curr = l;
+	tpl suiv = l->next;
+	tpl ret = l;
+	int found = 0;
+	
+	if(l->val != x){
+		while(suiv!=(tpl)NULL && !found){
+			if(suiv->val == x){
+				curr->next = suiv->next;
+				free(suiv);
+				found = 1;
+			}else{
+				curr = suiv;
+				suiv = suiv->next;
+			}
+		}
+	}else{
+		//Cas où l'élément a supprimer est le 1er
+		ret = l->next;
+		free(l);
+	}
+	return ret;
+}
+tpl deleteAll(int x , tpl l){
+	tpl curr = l;
+	tpl suiv = l->next;
+	tpl ret = l;
+
+	
+	if(l->val != x){
+		while(suiv!=(tpl)NULL){
+			if(suiv->val == x){
+				curr->next = suiv->next;
+				free(suiv);
+			}else{
+				curr = suiv;
+				suiv = suiv->next;
+			}
+		}
+	}else{
+		//Cas où l'élément a supprimer est le 1er
+		ret = deleteAll(x,l->next);
+		free(l);
+	}
+	return ret;
+}
+tpl copieInverse(tpl l){
+	tpl copie = cree_vide();
+	tpl curr = l;
+	while(!est_vide(curr)){
+		copie = ajout_liste(tete_liste(curr), copie);
+		curr = tete_liste(curr);
+	}
+	return copie;
 }
