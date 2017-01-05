@@ -30,7 +30,9 @@ typedef struct list{
 	struct list *  next;
 } t_list, * tpl;
 
-
+/**
+ * Prototypes
+ **/
 tpl cree_vide(void);
 int est_vide(tpl l);
 tpl ajout_liste(int val, tpl l);
@@ -52,6 +54,16 @@ tpl deleteFirst(int x, tpl l);
 tpl deleteAll(int x, tpl l);
 tpl copieInverse(tpl l);
 tpl copieInverse_ptr(tpl l);
+tpl insert_in_ordered_list(int x, tpl l);
+int isPalindrome(tpl l);
+int isFibonacci(tpl l);
+tpl fusionListesTriees(tpl l1, tpl l2);
+tpl fusionSansRepetitions(tpl l1, tpl l2);
+tpl sommePrefixe(tpl l);
+
+
+
+
 int main(void){
 
 	tpl l = cree_vide();
@@ -127,10 +139,47 @@ int main(void){
 	/* afficher(l); */
 	/* tpl newL = copieInverse(l); */
 	/* tpl newL_ptr = copieInverse_ptr(l); */
+
 	/* printf("Copie : "); */
 	/* afficher(newL); */
 	/* printf("Copie (ptr): "); */
 	/* afficher(newL); */
+
+
+	/**
+	 * TP B Listes
+	 */
+	//Question 2
+	/* l = ajout_liste(6, l); */
+	/* l = ajout_liste(4, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(2, l); */
+	/* l = ajout_liste(1, l); */
+	/* afficher(l); */
+	/* l = insert_in_ordered_list(0, l); */
+	/* afficher(l); */
+	
+
+	//Question 3
+	/* l = ajout_liste(1, l); */
+	/* l = ajout_liste(2, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(1, l); */
+	/* afficher(l); */
+	/* printf("Cette liste est un palindrome ? : %d\n",isPalindrome(l)); */
+
+	//Question 4
+	/* l = ajout_liste(0, l); */
+	/* l = ajout_liste(1, l); */
+	/* l = ajout_liste(1, l); */
+	/* l = ajout_liste(2, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(5, l); */
+	/* l = ajout_liste(7, l); */
+	/* l = ajout_liste(13, l); */
+	/* afficher(l); */
+	/* printf("Cette liste est une suite de Fibonacci ? : %d\n",isFibonacci(l)); */
 	
 	return 0;
 }
@@ -422,4 +471,122 @@ tpl copieInverse_ptr(tpl l){
 		curr = curr->next;
 	}
 	return copie;
+}
+/**
+ * Fonction qui insère un élément X a sa place dans la liste
+ * L'ordre donné est ascendant
+ */
+tpl insert_in_ordered_list(int x, tpl l){
+	if(est_vide(l) || tete_liste(l) > x){
+		return ajout_liste(x,l);
+	}else{
+		return ajout_liste(tete_liste(l), insert_in_ordered_list(x, queue_liste(l)));
+	}
+}
+
+/**
+ * Fonction qui renvoie si une liste est un palindrome
+ */
+int isPalindrome(tpl l){
+	tpl copie = copieInverse(l);
+	int palindrome = 1;
+	int i;
+	for(i=0; i<length(l)/2; i++){
+		if(tete_liste(l) != tete_liste(copie)){
+			palindrome = 0;
+		}
+		l = queue_liste(l);
+		copie = queue_liste(copie);
+	}
+	return palindrome;
+}
+
+/**
+ * Fonction qui vérifie si une liste est une suite de fibonacci
+ */
+int isFibonacci(tpl l){
+	int nValue,nMinusOneValue,nMinusTwoValue;
+	
+	if(length(l)==2){
+		return (tete_liste(l)==1) && (tete_liste(queue_liste(l))==0);
+	}else{
+		nValue = tete_liste(l);
+		nMinusOneValue = tete_liste(queue_liste(l));
+		nMinusTwoValue = tete_liste(queue_liste(queue_liste(l)));
+
+		if(nValue == nMinusOneValue + nMinusTwoValue){
+			//Dans le cas où le calcul est valide, on vérifie pour le reste de la liste
+			return isFibonacci(queue_liste(l));
+		}else{
+			//Sinon on arrête la vérification
+			return 0;
+		}
+	}
+}
+
+/**
+ * Fonction qui fusionne deux liste en conservant l'ordre
+ */
+tpl fusionListesTriees(tpl l1, tpl l2){
+	int i ;
+	for(i=0; i<length(l2);i++){
+		l1 = insert_in_ordered_list(tete_liste(l2), l1);
+		l2 = queue_liste(l2);
+	}
+	return l1;
+}
+
+/**
+ * Fonction qui fusionne deux liste en conservant l'ordre
+ * et en éliminant les répétitions
+ */
+tpl fusionSansRepetitions(tpl l1, tpl l2){
+	int i,valueToAdd ;
+	for(i=0; i<length(l2);i++){
+		valueToAdd = tete_liste(l2);
+		if(est_vide(searchFor(valueToAdd, l1))){
+			l1 = insert_in_ordered_list(valueToAdd, l1);
+		}			
+		l2 = queue_liste(l2);
+	}
+	return l1;
+}
+
+/**
+ * Fonction qui fusionne deux liste en conservant l'ordre
+ * et en éliminant les répétitions dans les deux listes
+ */
+tpl fusionSansRepetitions2(tpl l1, tpl l2){
+	tpl ret = cree_vide();
+	int i,valueToAdd ;
+	for(i=0; i<length(l1);i++){
+		valueToAdd = tete_liste(l1);
+		if(est_vide(searchFor(valueToAdd, ret))){
+			ret = insert_in_ordered_list(valueToAdd, ret);
+		}			
+		l1 = queue_liste(l1);
+	}
+	for(i=0; i<length(l2);i++){
+		valueToAdd = tete_liste(l2);
+		if(est_vide(searchFor(valueToAdd, ret))){
+			ret = insert_in_ordered_list(valueToAdd, ret);
+		}			
+		l2 = queue_liste(l2);
+	}
+	return ret;
+}
+/**
+ * Renvoie la liste des sommes préfixes de la liste donnée
+ */
+tpl sommePrefixe(tpl l){
+	tpl ret = cree_vide();
+	ret = ajout_liste(tete_liste(l), ret);
+	l = queue_liste(l);
+	
+	while(!est_vide(l)){
+		ret = ajout_liste(tete_liste(l)+tete_liste(ret),ret);
+		l = queue_liste(l);
+	}
+
+	return copieInverse(ret);
 }
