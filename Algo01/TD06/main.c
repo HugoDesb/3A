@@ -58,7 +58,8 @@ tpl insert_in_ordered_list(int x, tpl l);
 int isPalindrome(tpl l);
 int isFibonacci(tpl l);
 tpl fusionListesTriees(tpl l1, tpl l2);
-tpl fusionSansRepetitions(tpl l1, tpl l2);
+tpl fusionListesTrieesSansRepetitions(tpl l1, tpl l2);
+tpl fusionListesTrieesSansRepetitions2(tpl l1, tpl l2);
 tpl sommePrefixe(tpl l);
 
 
@@ -67,6 +68,7 @@ tpl sommePrefixe(tpl l);
 int main(void){
 
 	tpl l = cree_vide();
+	tpl ll = cree_vide();
 
 	//Tests première question
 	/* int shouldBeEmpty = est_vide(l); */
@@ -180,6 +182,58 @@ int main(void){
 	/* l = ajout_liste(13, l); */
 	/* afficher(l); */
 	/* printf("Cette liste est une suite de Fibonacci ? : %d\n",isFibonacci(l)); */
+
+	//Question 5
+	/* l = ajout_liste(6, l); */
+	/* l = ajout_liste(4, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(2, l); */
+	/* l = ajout_liste(1, l); */
+	/* ll = ajout_liste(6, ll); */
+	/* ll = ajout_liste(4, ll); */
+	/* ll = ajout_liste(3, ll); */
+	/* ll = ajout_liste(2, ll); */
+	/* ll = ajout_liste(1, ll); */
+	/* l = fusionListesTriees(l,ll); */
+	/* afficher(l); */
+
+	//Question 6
+	/* l = ajout_liste(6, l); */
+	/* l = ajout_liste(4, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(2, l); */
+	/* l = ajout_liste(1, l); */
+	/* ll = ajout_liste(6, ll); */
+	/* ll = ajout_liste(4, ll); */
+	/* ll = ajout_liste(3, ll); */
+	/* ll = ajout_liste(2, ll); */
+	/* ll = ajout_liste(1, ll); */
+	/* l = fusionListesTrieesSansRepetitions(l,ll); */
+	/* afficher(l); */
+
+	//Question 7
+	/* l = ajout_liste(6, l); */
+	/* l = ajout_liste(4, l); */
+	/* l = ajout_liste(3, l); */
+	/* l = ajout_liste(2, l); */
+	/* l = ajout_liste(1, l); */
+	/* ll = ajout_liste(6, ll); */
+	/* ll = ajout_liste(4, ll); */
+	/* ll = ajout_liste(3, ll); */
+	/* ll = ajout_liste(2, ll); */
+	/* ll = ajout_liste(1, ll); */
+	/* l = fusionListesTrieesSansRepetitions(l,ll); */
+	/* afficher(l); */
+
+	//Question 8
+	l = ajout_liste(6, l);
+	l = ajout_liste(4, l);
+	l = ajout_liste(3, l);
+	l = ajout_liste(2, l);
+	l = ajout_liste(1, l);
+	l = sommePrefixe(l);
+	afficher(l);
+
 	
 	return 0;
 }
@@ -528,8 +582,7 @@ int isFibonacci(tpl l){
  * Fonction qui fusionne deux liste en conservant l'ordre
  */
 tpl fusionListesTriees(tpl l1, tpl l2){
-	int i ;
-	for(i=0; i<length(l2);i++){
+	while(!est_vide(l2)){
 		l1 = insert_in_ordered_list(tete_liste(l2), l1);
 		l2 = queue_liste(l2);
 	}
@@ -540,9 +593,9 @@ tpl fusionListesTriees(tpl l1, tpl l2){
  * Fonction qui fusionne deux liste en conservant l'ordre
  * et en éliminant les répétitions
  */
-tpl fusionSansRepetitions(tpl l1, tpl l2){
-	int i,valueToAdd ;
-	for(i=0; i<length(l2);i++){
+tpl fusionListesTrieesSansRepetitions(tpl l1, tpl l2){
+	int valueToAdd;
+	while(!est_vide(l2)){
 		valueToAdd = tete_liste(l2);
 		if(est_vide(searchFor(valueToAdd, l1))){
 			l1 = insert_in_ordered_list(valueToAdd, l1);
@@ -556,7 +609,7 @@ tpl fusionSansRepetitions(tpl l1, tpl l2){
  * Fonction qui fusionne deux liste en conservant l'ordre
  * et en éliminant les répétitions dans les deux listes
  */
-tpl fusionSansRepetitions2(tpl l1, tpl l2){
+tpl fusionListesTrieesSansRepetitions2(tpl l1, tpl l2){
 	tpl ret = cree_vide();
 	int i,valueToAdd ;
 	for(i=0; i<length(l1);i++){
