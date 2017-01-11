@@ -1,0 +1,128 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[12pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+%\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=.8in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+%\title{Brief Article}
+%\author{The Author}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+% \setlength{\textwidth}{28.5cm}
+\setlength{\textheight}{23cm}
+
+\title{\vspace*{-2cm}Cours d'Algorithmique I\\ Fiche de TP 8 --- Second TP sur make}
+\author{Département Informatique, Réseaux et Multimédia\\
+ Polytech Marseille --- usage interne}
+\date{Année 2016-17 --- Semaines du 9/1 \& 16/1}
+
+
+
+
+\begin{document}
+\begin{sloppypar}
+
+\maketitle
+
+\thispagestyle{empty}
+
+\vspace*{-4ex}
+\noindent
+La compilation de programmes complexes est délicate, car il y a de nombreux fichiers qui se référencent les uns les autres. On aimerait donc disposer d'outils qui permettent de systématiser la tâche. L'outil {\tt make} se base sur des fichiers {\tt Makefile} ou {\tt makefile} créés par le programmeur. Les {\tt Makefile} décrivent les dépendances entre les fichiers.\medskip
+
+\noindent
+ {\tt make} se base sur les dates de création des fichiers et vérifie si leurs dates sont compatibles avec les dépendances. Ainsi, un fichier {\tt A} qui dépend de {\tt B} et qui est plus récent que {\tt B} est un cas normal. Si, par contre, {\tt A} dépend de {\tt B} et que {\tt B} est plus récent que {\tt A}, il y a un problème et le fichier {\tt A} doit être mis à jour.\medskip
+
+\noindent
+Typiquement, {\tt A} est un exécutable ou un fichier {\tt .o} et {\tt B} son fichier source. Si l'exécutable est plus ancien que le fichier source, il y a un problème et le fichier source doit être recompilé pour donner un nouvel exécutable qui sera à jour.\medskip
+
+\noindent
+Le fichier {\tt Repertoire - Makefile.zip} se décompile en une arborescence avec plusieurs sous-répertoires et fichiers {\tt .c} et {\tt .h}. L'exécution de {\tt make all} dans le répertoire principal lance toute une série d'opérations pour produire l'exécutable {\tt run}.  {\tt make clean} supprime les fichiers {\tt .o} inutiles. {\tt make veryclean} revient à la situation de départ.\medskip
+
+\noindent
+{\tt make} connaît les notions de {\tt But}, {\tt Dépendances} et {\tt actions}. Pour atteindre, le {\tt But}, il faut vérifier si les {\tt Dépendances} sont respectées. Si tel est le cas, le but est satisfait et il n'y a pas lieu de faire quoi que ce soit. Si les {\tt Dépendances} ne sont pas respectées, {\tt make} va exécuter la séquence d'{\tt actions}, qui est sensée rétablir la situation. La forme générale d'une règle est donnée ci-dessous à gauche. Chaque ligne d'action commence par le caractère de {\tt tabulation}. Un exemple typique de règle est donné ci-dessous à droite.\bigskip
+
+
+\begin{minipage}{.4\textwidth}
+{\tt
+\begin{verbatim} 
+But : Dépendances
+        action_1
+        action_2
+\end{verbatim}
+}
+\end{minipage}
+\
+\begin{minipage}{.4\textwidth}
+{\tt
+\begin{verbatim} 
+file.o : file.c file.h
+        gcc -c -Wall file.c
+\end{verbatim}
+}
+\end{minipage}
+
+\vspace*{2ex}
+\noindent
+La règle à droite exige que {\tt file.o} soit plus récent que {\tt file.c} et {\tt file.h}. A défaut, le fichier objet est plus ancien que les sources et n'est donc plus à jour. En conséquence, l'action requise consiste à recompiler {\tt file.c}. On appelle {\tt make} avec le {\tt But} souhaité. Ainsi, l'appel de {\tt make all} lance {\tt make} avec {\tt all} comme but. Les dépendances peuvent être des fichiers ou, à leur tour, des buts ce qui relance le {\tt make} avec ces buts.\medskip
+
+\noindent
+Le but du TP consiste à lire les sources, comprendre les dépendances et d'analyser et comprendre les {\tt Makefile}. {\tt man gcc} sera utile, ainsi que le manuel détaillé de {\tt make} et {\tt Makefile}, disponible à travers le lien  {\tt http://www.gnu.org/software/make/manual/make.html}\medskip
+
+\noindent
+{\tt make} est assez dépendant des plateformes et il se peut qu'il y ait de légers problèmes. Le {\tt make} fourni n'a pas été testé sur la dernière plateforme offerte par Polytech.
+
+
+\end{sloppypar}
+\end{document}
+
