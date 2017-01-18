@@ -83,7 +83,7 @@ save_t0:.word 0
 save_t1:.word 0
 
 # On crée une table des processus contenant le contexte des registres
-TCP:
+
 # ici on declare les registres du processus 0 
 process_state: .word 0 # 0 = aucun processus
 					   # 1 = processus
@@ -121,16 +121,18 @@ process_gp: .word 0
 process_sp: .word 0
 process_ra: .word 0
 
-#On réserve de la place pour le processus suivant
+#On réserve de la place pour les processus suivants
 .space 124 # Processus 1
 .space 124 # Processus 2
 .space 124 # Processus 3
 .space 124 # Processus 4
 .space 124 # Processus 5
+.space 124 # Processus 6
+.space 124 # Processus 7
 
 current_process: .word 0  # contient le nb du processus courant 
 						  # (celui qui a été interrompu)
-number_of_process: .word 6
+number_of_process: .word 8
 
 
 
@@ -182,7 +184,20 @@ appel_systeme_break:
       	la  $a0, alaligne
         li  $v0,  4
         syscall
-	
+
+	#on reprendera le processus a l'instruction suivant celle de l'interruption
+	mfc0 $t1, $14
+	addiu $t1, $t1, 4
+	mtc0 $t1, $14
+
+
+	beq $t0, 10, process_exit
+	beq $t0, 12, process_sleep
+	beq $t0, 14, process_wakeup
+
+	beq $t0, 16, bloque_sur_send
+	beq $t0, 18, bloque_sur_receiv
+
 	# afficher le message service non supporté
 	la $a0, msg_brk_invalide
 	li $v0,4
@@ -207,7 +222,7 @@ interruption: # Forcément IT clavier
 	syscall
 
 	#Cas ou $t0 = 115 (touche 's')
-	beq $t0,115, swap_process
+	beq $t0,115, save_process
 
 	j int_ret
 
@@ -240,7 +255,7 @@ ret:
 	lw $t1 save_t1($0)
 
 	mfc0 $k0 $14		# EPC
-	addiu $k0 $k0 4		# Return to next instruction
+	#addiu $k0 $k0 4		# Return to next instruction
 	.set noat
 	move $at $k1		# Restore $at
 	.set at
@@ -248,58 +263,57 @@ ret:
 	jr $k0
 
 
-swap_process:
+save_process:
 #-----SAUVEGARDE DES REGISTRES ET PC
 
-#calcul de l'offset
-lw $t0, current_process($0)
-li $t1, 124
-mul $t0, $t0, $t1
+	#calcul de l'offset
+	lw $t0, current_process($0)
+	li $t1, 124
+	mul $t0, $t0, $t1
 
-# sauvegarde de tous les registres
-mfc0 $t1, $14
-sw $t1, process_pc($t0)
-sw $k1, process_at($t0)
+	# sauvegarde de tous les registres
+	mfc0 $t1 $14
+	sw $t1, process_pc($t0)
+	sw $k1, process_at($t0)
 
-lw $t1, save_v0($0)
-sw $t1, process_v0($t0)
+	lw $t1, save_v0($0)
+	sw $t1, process_v0($t0)
 
-sw $v1, process_v1($t0)
+	sw $v1, process_v1($t0)
 
-lw $t1, save_a0($0)
-sw $t1, process_a0($t0)
+	lw $t1, save_a0($0)
+	sw $t1, process_a0($t0)
 
-sw $a1, process_a1($t0)
-sw $a2, process_a2($t0)
-sw $a3, process_a3($t0)
+	sw $a1, process_a1($t0)
+	sw $a2, process_a2($t0)
+	sw $a3, process_a3($t0)
 
-lw $t1, save_t0($0)
-sw $t1, process_t0($t0)
+	lw $t1, save_t0($0)
+	sw $t1, process_t0($t0)
 
-lw $t1, save_t1($0)
-sw $t1, process_t1($t0)
+	lw $t1, save_t1($0)
+	sw $t1, process_t1($t0)
 
-sw $t2, process_t2($t0)
-sw $t3, process_t3($t0)
-sw $t4, process_t4($t0)
-sw $t5, process_t5($t0)
-sw $t6, process_t6($t0)
-sw $t7, process_t7($t0)
-sw $t8, process_t8($t0)
-sw $t9, process_t9($t0)
+	sw $t2, process_t2($t0)
+	sw $t3, process_t3($t0)
+	sw $t4, process_t4($t0)
+	sw $t5, process_t5($t0)
+	sw $t6, process_t6($t0)
+	sw $t7, process_t7($t0)
+	sw $t8, process_t8($t0)
+	sw $t9, process_t9($t0)
 
-sw $s0, process_s0($t0)
-sw $s1, process_s1($t0)
-sw $s2, process_s2($t0)
-sw $s3, process_s3($t0)
-sw $s4, process_s4($t0)
-sw $s5, process_s5($t0)
-sw $s6, process_s6($t0)
-sw $s7, process_s7($t0)
-sw $s8, process_s8($t0)
+	sw $s0, process_s0($t0)
+	sw $s1, process_s1($t0)
+	sw $s2, process_s2($t0)
+	sw $s3, process_s3($t0)
+	sw $s4, process_s4($t0)
+	sw $s5, process_s5($t0)
+	sw $s6, process_s6($t0)
+	sw $s7, process_s7($t0)
 
-sw $gp, process_gp($t0)
-sw $ra, process_ra($t0)
+	sw $gp, process_gp($t0)
+	sw $ra, process_ra($t0)
 
 #-----FIN DE LA SAUVEGARDE DES REGISTRES ET PC
 
@@ -320,7 +334,7 @@ select_process:
 		# si state = 0 ou si state = 2 alors on passe au process suivant
 		li $t3, 1
 		lw $t4, process_state($t2)
-		beq $t3, $t4, boucle_select_process
+		bne $t3, $t4, boucle_select_process
 	
 	# on restore le contexte
 	move $t1, $t2
@@ -360,7 +374,6 @@ select_process:
 	lw $s5, process_s5($t1)
 	lw $s6, process_s6($t1)
 	lw $s7, process_s7($t1)
-	lw $s8, process_s8($t1)
 
 	lw $gp, process_gp($t1)
 	lw $ra, process_ra($t1)
@@ -382,47 +395,146 @@ process_exit:
 	lw $t2,current_process($0)
 	li $t3,124
 	mul $t2, $t2, $t3
+
 	#Changement du state
 	sw $0, process_state($t2)
+
 	#Changement du process sans sauvegarde du contexte
 	j select_process
 
 process_sleep:
-	#calcul de l'offset
+	#calcul de l'offset : $t2
 	lw $t2,current_process($0)
 	li $t3,124
 	mul $t2, $t2, $t3
 	#Changement du state
 	li $t1,2
 	sw $t1, process_state($t2)
-	#on reprendera le processus a l'instruction suivant celle de l'interruption
-	mfc0 $t1, $14
-	addiu $t1, $t1, 4
-	mtc0 $t1, $14
+	
 	#Changement du process avec sauvegarde du contexte
-	j swap_process
+	j save_process
 
 #Le paramètre est le num du process a réveiller, dans $a0
 process_wakeup:
 	#récup du num du processus
-	lw $t1, save_a0($0)
-	#calcul de l'offset
-	lw $t2,current_process($0)
-	li $t3,124
-	mul $t2, $t2, $t3
+	lw $a0, save_a0($0)
+	#calcul de l'offset : $t1
+	li $t1,124
+	mul $t1, $t1, $a0
 	#Changement du state
-	lw $t3, process_state($t2)
+	lw $t3, process_state($t1)
 	#si le processus est bien en attente, il est est réveillé
-	li $t1,2
-	bne $t1, $t3,process_wakeup_exited
-	li $t1,1
-	sw $t1,process_state($t2)
+	li $t2,2
+	bne $t2, $t3,process_wakeup_exited
+	li $t2,1
+	sw $t2,process_state($t1)
 
+	j save_process
+  
 #Cas ou le programme voulant être réveillé n'est pas actif
 # Retour au programme interrompu
 process_wakeup_exited:
 	j ret;
 
+#a0 = num cible et $v0 = msg
+bloque_sur_send:
+	lw $a0, save_a0($0)
+	lw $v0, save_v0($0)
+
+	#calcul offset process actuel : $t0
+	lw $t0, current_process($0)
+	li $t1, 124
+	mul $t0, $t0,$t1
+
+	# mis en pause send
+	li $t2, 3
+	sw $t2, process_state($t0)
+
+	# stockage du msg dans $v1
+	sw $v0, process_v1($t0)
+
+	#calcul offset cible : $t1
+	mul $t1, $t1, $a0
+	# si cible est en reception (state=4)
+	lw $t3, process_state($t1)
+	beq $t2, 4, send
+
+	j save_process
+
+send:
+
+	la $a0,test1
+	li $v0, 4
+	syscall
+
+	lw $t2, process_v1($t0)
+	sw $t2, process_v1($t1)
+
+	#on remet les status a 1
+	li $t2, 1;
+	sw $t2, process_state($t0)
+	sw $t2, process_state($t1)
+
+	#affichage 
+	la $a0,message72
+	li $v0, 4
+	syscall
+	lw $a0, process_v1($t0)
+	li $v0, 1
+	syscall
+	la $a0, alaligne
+	li $v0, 4
+	syscall
+
+	j save_process
+
+
+#num envoyeur sur $a0
+bloque_sur_receiv:
+	#calcul offset process actuel : $t0
+	lw $t0, current_process($0)
+	li $t1, 124
+	mul $t0, $t0,$t1
+
+	li $t2, 4
+	sw $t2, process_state($t0)
+
+	#calcul offset process envoyeur : $t1
+	lw $a0, save_a0($0)
+	mul $t1, $t1, $a0
+
+	# si envoyeur en attente (state=3)
+	li $t2, 3
+	lw $t3, process_state($t1)
+	beq $t2, $t3, receive
+
+	j save_process
+
+receive:
+	la $a0,test2
+	li $v0, 4
+	syscall
+
+	lw $t3, process_v1($t1)
+	sw $t3, process_v1($t0)
+
+	#on remet les status a 1
+	li $t2, 1;
+	sw $t2, process_state($t0)
+	sw $t2, process_state($t1)
+
+	#affichage 
+	la $a0,message72
+	li $v0, 4
+	syscall
+	lw $a0, process_v1($t0)
+	li $v0, 1
+	syscall
+	la $a0, alaligne
+	li $v0, 4
+	syscall
+
+	j save_process
 
 int_ret:
 # Return from interrupt. Don't skip instruction
@@ -517,12 +629,23 @@ __start:
 	sw $t0, process_pc($t2)
 	sw $t1, process_state($t2)
 
+	#Processus 6 :
+	la $t0, main6($0)
+	addi $t2,$t2, 124
+	sw $t0, process_pc($t2)
+	sw $t1, process_state($t2)
+
+	#Processus 7 :
+	la $t0, main7($0)
+	addi $t2,$t2, 124
+	sw $t0, process_pc($t2)
+	sw $t1, process_state($t2)
+
 	#FIN ------------------------------------- Initialisation des processus
 
 
 	# mettre l'adresse du point d'entrée du programme de test dans $k0
 	# ici on met le programme 0
-	sw $t0, current_process($0)
 	lw $k0, process_pc($0)
 
 
@@ -534,4 +657,7 @@ __start:
 	jr $k0
 
 # ---------------------------------------------------------------
-
+.data
+test1: .asciiz "Send"
+test2: .asciiz "Receive"
+message72: .asciiz "Message recu = "
