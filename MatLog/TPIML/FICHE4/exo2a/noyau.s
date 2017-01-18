@@ -87,6 +87,9 @@ TCP:
 # ici on declare les registres du processus 0 
 process_state: .word 0 # 0 = aucun processus
 					   # 1 = processus
+					   # 2 = en attente
+					   # 3 = bloqué sur send
+					   # 4 = bloqué sur receive
 process_pc: .word 0
 process_at: .word 0
 process_v0: .word 0
@@ -314,8 +317,8 @@ select_process:
 		# calcul de l'offset
 		mul $t2, $t0, 124
 
-		# si state = 0 alors on passe au process suivant
-		li $t3, 0
+		# si state = 0 ou si state = 2 alors on passe au process suivant
+		li $t3, 1
 		lw $t4, process_state($t2)
 		beq $t3, $t4, boucle_select_process
 	
@@ -374,15 +377,56 @@ select_process:
 
 	jr $k0
 
-# load the the interruption adress
-# find out the program interrupted
-# Store datas of the prog somewhere 
-# j int_ret
+process_exit:
+	# calcul de l'offset
+	lw $t2,current_process($0)
+	li $t3,124
+	mul $t2, $t2, $t3
+	#Changement du state
+	sw $0, process_state($t2)
+	#Changement du process sans sauvegarde du contexte
+	j select_process
+
+process_sleep:
+	#calcul de l'offset
+	lw $t2,current_process($0)
+	li $t3,124
+	mul $t2, $t2, $t3
+	#Changement du state
+	li $t1,2
+	sw $t1, process_state($t2)
+	#on reprendera le processus a l'instruction suivant celle de l'interruption
+	mfc0 $t1, $14
+	addiu $t1, $t1, 4
+	mtc0 $t1, $14
+	#Changement du process avec sauvegarde du contexte
+	j swap_process
+
+#Le paramètre est le num du process a réveiller, dans $a0
+process_wakeup:
+	#récup du num du processus
+	lw $t1, save_a0($0)
+	#calcul de l'offset
+	lw $t2,current_process($0)
+	li $t3,124
+	mul $t2, $t2, $t3
+	#Changement du state
+	lw $t3, process_state($t2)
+	#si le processus est bien en attente, il est est réveillé
+	li $t1,2
+	bne $t1, $t3,process_wakeup_exited
+	li $t1,1
+	sw $t1,process_state($t2)
+
+#Cas ou le programme voulant être réveillé n'est pas actif
+# Retour au programme interrompu
+process_wakeup_exited:
+	j ret;
+
 
 int_ret:
 # Return from interrupt. Don't skip instruction
 # since it has not executed.
-#
     lw $v0, save_v0($0)		# Restore regs
 	lw $a0, save_a0($0) 
 	lw $t0, save_t0($0)
