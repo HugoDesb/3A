@@ -281,8 +281,8 @@ int connexe_vague ( t_gra graphe , int view )
   }
 
   //On sèche tous les sommets
-  for(i=0;i<taille_graphe(graphe);i++){
-    secher(graphe,i);
+  for(v=0;v<taille_graphe(graphe);v++){
+    secher(graphe,v);
   }
   
   return( cc ) ; 
@@ -328,14 +328,29 @@ int est_un_arbre ( t_gra graphe )
    parcours_profondeur_niveaux_rec effectue le parcours. */
 
 void parcours_profondeur_niveaux_rec ( t_gra graphe , int sommet , int niveau )
-     {
-	/* +/- 10 lignes */
-     }
+{
+  /* +/- 10 lignes */
+  int i;
+  for(i=0;i<taille_graphe(graphe);i++){
+    if(!mouille(graphe,i) && get_arc(graphe,sommet,i)){
+      tremper(graphe,i);
+      sommet_set_poids(graphe,i,min(niveau,sommet_get_poids(graphe,i)));
+      parcours_profondeur_niveaux_rec(graphe, i, niveau+1);
+      secher(graphe,i);
+    }
+  }
+}
 
 void parcours_profondeur_niveaux ( t_gra graphe , int depart )
-     {
-	/* +/- 10 lignes */
-     }
+{
+  int i;
+  for(i=0;i<taille_graphe(graphe);i++){
+    sommet_set_poids(graphe,i,PLUS_INF);
+  }
+  sommet_set_poids(graphe,depart,0);
+  tremper(graphe,depart);
+  parcours_profondeur_niveaux_rec(graphe, depart, 1);
+}
 
 /* ------------------------------------------------------------ */
 

@@ -113,114 +113,21 @@ Le graphe G_9_nonpond_S :
 graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -- b; a -- c; b -- d; c -- e; d -- d; d -- e; e -- f; g -- h; h -- h; h -- i; rankdir=LR }
 
 Les étapes de propagation des vagues dans G_9_nonpond_S :
-tout d'abord 0 
-1ère boucle, sommet départ : 0
-2ème boucle, et le sommet u:0
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:0
 
-graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -- b; a -- c; b -- d; c -- e; d -- d; d -- e; e -- f; g -- h; h -- h; h -- i; rankdir=LR }
+graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -- b[color=red]; a -- c[color=red]; b -- d; c -- e; d -- d; d -- e; e -- f; g -- h; h -- h; h -- i; rankdir=LR }
 
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:1
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:2
 
-graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -- b; a -- c; b -- d[color=red]; c -- e[color=red]; d -- d; d -- e; e -- f; g -- h; h -- h; h -- i; rankdir=LR }
+graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -- b[color=red]; a -- c[color=red]; b -- d[color=green3]; c -- e[color=green3]; d -- d; d -- e; e -- f; g -- h; h -- h; h -- i; rankdir=LR }
 
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:3
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:4
 
-graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label="f* / 3"]; g[label=g]; h[label=h]; i[label=i]; a -- b; a -- c; b -- d[color=red]; c -- e[color=red]; d -- d; d -- e; e -- f[color=green3]; g -- h; h -- h; h -- i; rankdir=LR }
+graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label="f* / 3"]; g[label=g]; h[label=h]; i[label=i]; a -- b[color=red]; a -- c[color=red]; b -- d[color=green3]; c -- e[color=green3]; d -- d; d -- e; e -- f[color=blue]; g -- h; h -- h; h -- i; rankdir=LR }
 
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-1ère boucle, sommet départ : 6
-2ème boucle, et le sommet u:6
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:6
 
-graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label="f* / 3"]; g[label="g* / 0"]; h[label="h* / 1"]; i[label=i]; a -- b; a -- c; b -- d[color=red]; c -- e[color=red]; d -- d; d -- e; e -- f[color=green3]; g -- h; h -- h; h -- i; rankdir=LR }
+graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label="f* / 3"]; g[label="g* / 0"]; h[label="h* / 1"]; i[label=i]; a -- b[color=red]; a -- c[color=red]; b -- d[color=green3]; c -- e[color=green3]; d -- d; d -- e; e -- f[color=blue]; g -- h[color=red]; h -- h; h -- i; rankdir=LR }
 
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-2ème boucle, et le sommet u:7
 
-graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label="f* / 3"]; g[label="g* / 0"]; h[label="h* / 1"]; i[label="i* / 2"]; a -- b; a -- c; b -- d[color=red]; c -- e[color=red]; d -- d; d -- e; e -- f[color=green3]; g -- h; h -- h; h -- i[color=red]; rankdir=LR }
+graph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label="c* / 1"]; d[label="d* / 2"]; e[label="e* / 2"]; f[label="f* / 3"]; g[label="g* / 0"]; h[label="h* / 1"]; i[label="i* / 2"]; a -- b[color=red]; a -- c[color=red]; b -- d[color=green3]; c -- e[color=green3]; d -- d; d -- e; e -- f[color=blue]; g -- h[color=red]; h -- h; h -- i[color=green3]; rankdir=LR }
 
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
-3ème boucle
 Il y a 2 composantes connexes.
 
 Le graphe G_9_arbre est un arbre : 0
@@ -233,7 +140,7 @@ graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g
 
 Le graphe G_9_nonpond_NS avec les distances depuis 0 :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b; a -> e; b -> c; b -> e; b -> f; c -> b; c -> d; c -> e; c -> f; c -> h; d -> c; d -> f; d -> g; d -> i; e -> b; e -> c; e -> f; e -> h; f -> c; f -> d; f -> e; f -> g; f -> h; g -> d; g -> f; g -> h; g -> i; h -> e; h -> g; h -> i }
+digraph{ a[label="a* / 0"]; b[label="b / 1"]; c[label="c / 2"]; d[label="d / 3"]; e[label="e / 1"]; f[label="f / 2"]; g[label="g / 3"]; h[label="h / 2"]; i[label="i / 3"]; a -> b; a -> e; b -> c; b -> e; b -> f; c -> b; c -> d; c -> e; c -> f; c -> h; d -> c; d -> f; d -> g; d -> i; e -> b; e -> c; e -> f; e -> h; f -> c; f -> d; f -> e; f -> g; f -> h; g -> d; g -> f; g -> h; g -> i; h -> e; h -> g; h -> i }
 
 Le tri topologique de G_6_nonpond_DAG donne :
 
