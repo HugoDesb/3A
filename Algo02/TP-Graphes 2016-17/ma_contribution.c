@@ -245,12 +245,9 @@ int connexe_vague ( t_gra graphe , int view )
 {/* +/- 40 lignes. Il faudra retourner une valeur convenable. */
   int cc = 0,p,u,v;
   t_file sDep = cree_file_vide();
-  printf("tout d'abord %d \n",cherche_sommet_sec(graphe));
   //tant qu'on peut trouver une composante connexe
-  while(cherche_sommet_sec(graphe)!=-1){
+  while((u = cherche_sommet_sec(graphe))!=-1){
     definir_couleur(1);
-    u = cherche_sommet_sec(graphe);
-    printf("1ère boucle, sommet départ : %d\n",u);
     sommet_set_poids(graphe,u,0);
     tremper(graphe,u);
     sDep = insere_file(u,sDep);
@@ -258,7 +255,6 @@ int connexe_vague ( t_gra graphe , int view )
     p=1;
     // tant que la vague lancée n'est pas terminée
     while(!est_file_vide(sDep)){
-      printf("2ème boucle, et le sommet u:%d\n",u);
       u = tete_file(sDep);
       sDep = supprime_tete_file(sDep);
       //on checke si on doit changer la couleur (cad on est ds une nouvelle vague)
@@ -274,7 +270,6 @@ int connexe_vague ( t_gra graphe , int view )
       }
       //pour chaque voisin v de u
       for(v=0;v<(taille_graphe(graphe));v++){
-	printf("3ème boucle\n");
 	if(!mouille(graphe,v) && get_arete(graphe,u,v)){
 	  set_couleur_arc(graphe,u,v,la_couleur());
 	  tremper(graphe,v);
@@ -283,6 +278,11 @@ int connexe_vague ( t_gra graphe , int view )
 	}
       }
     }
+  }
+
+  //On sèche tous les sommets
+  for(i=0;i<taille_graphe(graphe);i++){
+    secher(graphe,i);
   }
   
   return( cc ) ; 
