@@ -233,9 +233,10 @@ int cherche_sommet_sec ( t_gra graphe )
 {/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
       int i=0,ret = -1;
       while(i<taille_graphe(graphe) && ret == -1){
-	if(mouille(graphe,i)){
+	if(!mouille(graphe,i)){
 	  ret = i;
 	}
+	i++;
       }
      return( ret ) ; 
 }
@@ -244,14 +245,20 @@ int connexe_vague ( t_gra graphe , int view )
 {/* +/- 40 lignes. Il faudra retourner une valeur convenable. */
   int cc = 0,p,u,v;
   t_file sDep = cree_file_vide();
-  
+  printf("tout d'abord %d \n",cherche_sommet_sec(graphe));
   //tant qu'on peut trouver une composante connexe
   while(cherche_sommet_sec(graphe)!=-1){
-    sDep = insere_file(cherche_sommet_sec(graphe),sDep);
+    definir_couleur(1);
+    u = cherche_sommet_sec(graphe);
+    printf("1ère boucle, sommet départ : %d\n",u);
+    sommet_set_poids(graphe,u,0);
+    tremper(graphe,u);
+    sDep = insere_file(u,sDep);
     cc++;
-    p=0;
+    p=1;
     // tant que la vague lancée n'est pas terminée
     while(!est_file_vide(sDep)){
+      printf("2ème boucle, et le sommet u:%d\n",u);
       u = tete_file(sDep);
       sDep = supprime_tete_file(sDep);
       //on checke si on doit changer la couleur (cad on est ds une nouvelle vague)
@@ -263,9 +270,11 @@ int connexe_vague ( t_gra graphe , int view )
 	p++;//pour détecter les chgments de vague suivant
 	    //distance +1 a partir d'ici
 	couleur_suivante();
+	imprime_graphe(graphe,TOUTES_COULEURS,1);
       }
       //pour chaque voisin v de u
-      for(v=0;v<(taille_graphe(graphe)-1);v++){
+      for(v=0;v<(taille_graphe(graphe));v++){
+	printf("3ème boucle\n");
 	if(!mouille(graphe,v) && get_arete(graphe,u,v)){
 	  set_couleur_arc(graphe,u,v,la_couleur());
 	  tremper(graphe,v);
