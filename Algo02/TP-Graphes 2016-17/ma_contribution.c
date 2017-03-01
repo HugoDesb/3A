@@ -230,20 +230,54 @@ int degre_graphe ( t_gra graphe )
    peut préférer résoudre d'abord certaines des questions qui suivent. */ 
 
 int cherche_sommet_sec ( t_gra graphe )
-    {/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
-	    int i=0,ret = -1;
-	    while(i<taille_graphe(graphe) && ret == -1){
-		    if(mouille(graphe,i)){
-			    ret = i;
-		    }
-	    }
+{/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
+      int i=0,ret = -1;
+      while(i<taille_graphe(graphe) && ret == -1){
+	if(mouille(graphe,i)){
+	  ret = i;
+	}
+      }
      return( ret ) ; 
-    }
+}
 
 int connexe_vague ( t_gra graphe , int view )
-    {/* +/- 40 lignes. Il faudra retourner une valeur convenable. */
-     return( 0 ) ; 
+{/* +/- 40 lignes. Il faudra retourner une valeur convenable. */
+  int cc = 0,p,u,v;
+  t_file sDep = cree_file_vide();
+  
+  //tant qu'on peut trouver une composante connexe
+  while(cherche_sommet_sec(graphe)!=-1){
+    sDep = insere_file(cherche_sommet_sec(graphe),sDep);
+    cc++;
+    p=0;
+    // tant que la vague lancée n'est pas terminée
+    while(!est_file_vide(sDep)){
+      u = tete_file(sDep);
+      sDep = supprime_tete_file(sDep);
+      //on checke si on doit changer la couleur (cad on est ds une nouvelle vague)
+      // on utilise la prop qui stipule qu'a la vague n°x, toutes les sommets
+      // sont a une distance x du premier sommet
+      // si on tombe sur un sommet de départ de la vague x+1, alors on change la
+      // couleur
+      if(sommet_get_poids(graphe,u)+1>p){
+	p++;//pour détecter les chgments de vague suivant
+	    //distance +1 a partir d'ici
+	couleur_suivante();
+      }
+      //pour chaque voisin v de u
+      for(v=0;v<(taille_graphe(graphe)-1);v++){
+	if(!mouille(graphe,v) && get_arete(graphe,u,v)){
+	  set_couleur_arc(graphe,u,v,la_couleur());
+	  tremper(graphe,v);
+	  sommet_set_poids(graphe,v,sommet_get_poids(graphe,u)+1);
+	  sDep = insere_file(v,sDep);
+	}
+      }
     }
+  }
+  
+  return( cc ) ; 
+}
 
 /* ------------------------------------------------------------ */
 
@@ -254,20 +288,19 @@ int connexe_vague ( t_gra graphe , int view )
 
 int nombre_aretes ( t_gra graphe )
     {/* +/- 10 lignes. Il faudra retourner une valeur convenable. */
-	    int i,j,nbAretes;
-	    for(i=0;i<(taille_graphe(graphe)-1);i++){
-		    for(j=i+1;j<taille_graphe(graphe);j++){
-			    if(get_arete(graphe,i,j)){
-				    nbAretes++;
-			    }
-		    }
-	    }
+      int i,j,nbAretes=0;
+      for(i=0;i<(taille_graphe(graphe)-1);i++){
+	for(j=i+1;j<taille_graphe(graphe);j++){
+	  if(get_arete(graphe,i,j)){
+	    nbAretes++;
+	  }
+	}
+      }
      return( nbAretes ) ; 
     }
 
 int est_un_arbre ( t_gra graphe )
     {/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
-	    
 	    return( (nombre_aretes(graphe)-1) == taille_graphe(graphe) && connexe_vague(graphe, 0)) ; 
     }
 
