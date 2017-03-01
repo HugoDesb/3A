@@ -104,6 +104,8 @@ void fermeture_reflexive_pondere ( t_gra graphe , int poids )
 {
     /* +/- 5 lignes */
     int i;
+    assert(graphe_pondere(graphe));
+    assert(poids_ok(graphe));
     if(poids_ok(graphe,poids) && graphe_pondere(graphe)){
         for(i=0;i<taille_graphe(graphe);i++){
             set_arete_pondere(graphe, i,i, la_couleur(),poids);
@@ -231,20 +233,23 @@ int degre_graphe ( t_gra graphe )
 
 int cherche_sommet_sec ( t_gra graphe )
 {/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
-      int i=0,ret = -1;
-      while(i<taille_graphe(graphe) && ret == -1){
-	if(!mouille(graphe,i)){
-	  ret = i;
-	}
-	i++;
-      }
-     return( ret ) ; 
+  int i=0,ret = -1;
+  while(i<taille_graphe(graphe) && ret == -1){
+    if(!mouille(graphe,i)){
+      ret = i;
+    }
+    i++;
+  }
+  return( ret ) ; 
 }
 
 int connexe_vague ( t_gra graphe , int view )
 {/* +/- 40 lignes. Il faudra retourner une valeur convenable. */
   int cc = 0,p,u,v;
   t_file sDep = cree_file_vide();
+
+  assert(graphe_non_oriente(graphe));
+  
   //tant qu'on peut trouver une composante connexe
   while((u = cherche_sommet_sec(graphe))!=-1){
     definir_couleur(1);
@@ -266,7 +271,9 @@ int connexe_vague ( t_gra graphe , int view )
 	p++;//pour détecter les chgments de vague suivant
 	    //distance +1 a partir d'ici
 	couleur_suivante();
-	imprime_graphe(graphe,TOUTES_COULEURS,1);
+	if(view){
+	  imprime_graphe(graphe,TOUTES_COULEURS,1);
+	}
       }
       //pour chaque voisin v de u
       for(v=0;v<(taille_graphe(graphe));v++){
@@ -309,9 +316,13 @@ int nombre_aretes ( t_gra graphe )
     }
 
 int est_un_arbre ( t_gra graphe )
-    {/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
-	    return( (nombre_aretes(graphe)-1) == taille_graphe(graphe) && connexe_vague(graphe, 0)) ; 
-    }
+{/* +/- 5 lignes. Il faudra retourner une valeur convenable. */
+      
+  assert(graphe_AR(graphe) && graphe_non_oriente(graphe));
+      
+      
+  return( (nombre_aretes(graphe)-1) == taille_graphe(graphe) && connexe_vague(graphe, 0)) ; 
+}
 
 /* ------------------------------------------------------------ */
 
