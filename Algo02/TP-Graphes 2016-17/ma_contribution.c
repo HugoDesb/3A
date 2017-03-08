@@ -105,7 +105,7 @@ void fermeture_reflexive_pondere ( t_gra graphe , int poids )
     /* +/- 5 lignes */
     int i;
     assert(graphe_pondere(graphe));
-    assert(poids_ok(graphe));
+    assert(poids_ok(graphe,poids));
     if(poids_ok(graphe,poids) && graphe_pondere(graphe)){
         for(i=0;i<taille_graphe(graphe);i++){
             set_arete_pondere(graphe, i,i, la_couleur(),poids);
@@ -272,7 +272,7 @@ int connexe_vague ( t_gra graphe , int view )
 	    //distance +1 a partir d'ici
 	couleur_suivante();
 	if(view){
-	  imprime_graphe(graphe,TOUTES_COULEURS,1);
+	  imprime_graphe(graphe,TOUTES_COULEURS,OUI);
 	}
       }
       //pour chaque voisin v de u
@@ -321,7 +321,7 @@ int est_un_arbre ( t_gra graphe )
   assert(graphe_AR(graphe) && graphe_non_oriente(graphe));
       
       
-  return( (nombre_aretes(graphe)-1) == taille_graphe(graphe) && connexe_vague(graphe, 0)) ; 
+  return( (nombre_aretes(graphe)-1) == taille_graphe(graphe) && connexe_vague(graphe, NON)==1) ; 
 }
 
 /* ------------------------------------------------------------ */
@@ -394,14 +394,65 @@ void parcours_profondeur_niveaux ( t_gra graphe , int depart )
    que partiellement valué. */
 
 int cherche_sommet_sec_et_predecesseurs_mouilles ( t_gra graphe )
-    {/* +/- 15 lignes. Il faudra retourner une valeur convenable. */
-     return( 0 ) ; 
+{/* +/- 15 lignes. Il faudra retourner une valeur convenable. */
+  imprime_graphe(graphe,TOUTES_COULEURS,OUI);
+
+  
+  int u,v,toutPredecesseurMouille,pasDePredecesseur;
+  for(v=0; v<taille_graphe(graphe);v++){
+    if(!mouille(graphe,v)){
+      toutPredecesseurMouille = 1;
+      pasDePredecesseur = 1;
+      printf("v : %d\n",v);
+      for(u=0;u<taille_graphe(graphe);u++){
+	printf("    u : %d\n",u);
+	toutPredecesseurMouille = toutPredecesseurMouille
+	  && (!get_arc(graphe,u,v) || (mouille(graphe,u) && get_arc(graphe,u,v)));
+	pasDePredecesseur = pasDePredecesseur && !get_arc(graphe,u,v);
+      }
+      if(toutPredecesseurMouille || pasDePredecesseur){
+	printf("ret : %d\n",v);
+	return v;
+      }
     }
+  }
+  return (-1);
+}
 
 void tri_topologique ( t_gra graphe )
-     {
-	/* +/- 20 lignes */
-     }
+{
+  /* +/- 20 lignes */
+  int aNodeDoesntHaveWeight,hasCycle = 0;
+  int sommet,i,max;
+  do{
+    sommet = cherche_sommet_sec_et_predecesseurs_mouilles(graphe);
+    if(sommet == -1){
+      hasCycle=1;
+      printf("LE GRAPHE COMPORTE DES CIRCUITS !\n");
+    }else{
+      //parmi tout les prédécesseurs mouillés, on obtient le poids maximum
+      max = 0;
+      for(i=0;i<taille_graphe(graphe);i++){
+	if(get_arc(graphe,i,sommet) && mouille(graphe,i)){
+	  if(sommet_get_poids(graphe,i)>=max){
+	    max = sommet_get_poids(graphe,i) + 1;
+	  }
+	}
+      }
+      //on assigne un poids au sommet courant, et on le mouille
+      sommet_set_poids(graphe,sommet,max);
+      tremper(graphe,sommet);
+
+      //on regarde si il reste des sommets a valuer
+      aNodeDoesntHaveWeight = 0;
+      for(i=0;i<taille_graphe(graphe);i++){
+	aNodeDoesntHaveWeight = aNodeDoesntHaveWeight
+	  || !sommet_possede_poids(graphe,i);
+      }
+    }
+  }while(aNodeDoesntHaveWeight && !hasCycle);
+  
+}
 
 /* ------------------------------------------------------------ */
 
