@@ -159,14 +159,85 @@ FROM FOURNISSEUR f
 WHERE nu=1 AND np=3;
               
 ---------------------------------   EXERCICE 17  --------------------------------
+SELECT p.nomp, p.couleur 
+FROM produit p
+JOIN livraison l ON p.np=l.np
+WHERE l.nf = 2;
 
----------------------------------   EXERCICE 10  --------------------------------
----------------------------------   EXERCICE 10  --------------------------------
----------------------------------   EXERCICE 10  --------------------------------
----------------------------------   EXERCICE 10  --------------------------------
----------------------------------   EXERCICE 10  --------------------------------
+---------------------------------   EXERCICE 18  --------------------------------
+SELECT l.nf
+FROM produit p
+JOIN livraison l ON p.np=l.np
+WHERE l.nu=1 AND p.couleur='ROUGE';
+
+---------------------------------   EXERCICE 19  --------------------------------
+SELECT f.nomf
+FROM fournisseur f
+JOIN LIVRAISON l on f.nf = l.nf
+WHERE l.nu IN (SELECT nu
+               FROM usine
+               WHERE ville IN ('SOCHAUX', 'PARIS')
+               )
+AND l.np IN (SELECT np
+            FROM produit
+            WHERE couleur='ROUGE');
+
+---------------------------------   EXERCICE 20  --------------------------------
+SELECT l.np
+FROM LIVRAISON l
+JOIN fournisseur f ON f.nf=l.nf
+JOIN usine u ON u.nu=l.nu
+WHERE u.ville = f.ville;
+
+---------------------------------   EXERCICE 21  --------------------------------
+SELECT u.nu
+FROM livraison l
+JOIN usine u ON l.nu = u.nu
+JOIN FOURNISSEUR f ON l.nf=f.nf
+WHERE f.ville!=u.ville
+GROUP BY u.nu;
+
+---------------------------------   EXERCICE 22  --------------------------------
+SELECT nf
+FROM livraison
+WHERE nu=1 AND nf IN (SELECT nf
+                      FROM livraison
+                      WHERE nu=2);
 
 
+---------------------------------   EXERCICE 23  --------------------------------
+SELECT DISTINCT nu
+FROM livraison
+WHERE np IN (SELECT np
+             FROM livraison
+             WHERE nf=3);
+---------------------------------   EXERCICE 24  --------------------------------
+SELECT nu
+FROM livraison
+WHERE nu NOT IN (SELECT nu
+                 FROM livraison
+                 WHERE nf!=3);
+                 
+---------------------------------   EXERCICE 25  --------------------------------
+SELECT DISTINCT nu
+FROM livraison
+WHERE np NOT IN (SELECT np
+                 FROM produit
+                 WHERE couleur='ROUGE' AND np IN (SELECT np
+                                                  FROM livraison l
+                                                  JOIN fournisseur f ON l.nf=f.nf
+                                                  WHERE f.ville='PARIS'));
+                                                  
+---------------------------------   EXERCICE 26  --------------------------------
+SELECT COUNT(*)
+FROM livraison l
+JOIN FOURNISSEUR f ON l.nf=f.nf
+WHERE f.ville = 'PARIS';
+
+---------------------------------   EXERCICE 27  --------------------------------
+SELECT DISTINCT np
+FROM produit p
+WHERE p -- inférieur a TOUS les autres poids
 
 
 
