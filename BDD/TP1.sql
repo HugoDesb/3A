@@ -240,5 +240,30 @@ FROM produit p
 WHERE p -- inférieur a TOUS les autres poids
 
 
+---------------------------------   EXERCICE 28  --------------------------------
+SELECT COUNT()
+
+---------------------------------   EXERCICE 29  --------------------------------
+-- num d'usines qui achètent au fournisseur 3 tous les produis qu'il fournit
+
+--num d'usines qui achètent au fournisseur 3
+SELECT DISTINCT nu
+FROM livraison
+WHERE nf=3;
+
+--les produis qu'il fournit
+SELECT COUNT(DISTINCT NP)
+FROM livraison
+WHERE nf=3
+
+--FINAL --->
+--num d'usines qui achètent au fournisseur 3 tous les produis qu'il fournit
+SELECT DISTINCT nu
+FROM livraison
+WHERE nf=3
+GROUP BY nu
+HAVING COUNT(DISTINCT np) = (SELECT COUNT(DISTINCT NP)
+                             FROM livraison
+                             WHERE nf=3);
 
 
