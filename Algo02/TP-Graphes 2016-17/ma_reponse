@@ -144,241 +144,28 @@ digraph{ a[label="a* / 0"]; b[label="b / 1"]; c[label="c / 2"]; d[label="d / 3"]
 
 Le tri topologique de G_6_nonpond_DAG donne :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
-
-v : 0
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 1
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 2
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 3
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 4
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 5
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-ret : 5
-
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label="f* / 0"]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
-
-v : 0
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 1
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 2
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-ret : 2
-
-digraph{ a[label=a]; b[label=b]; c[label="c* / 1"]; d[label=d]; e[label=e]; f[label="f* / 0"]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
-
-v : 0
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 1
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-ret : 1
-
-digraph{ a[label=a]; b[label="b* / 2"]; c[label="c* / 1"]; d[label=d]; e[label=e]; f[label="f* / 0"]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
-
-v : 0
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-ret : 0
-
-digraph{ a[label="a* / 3"]; b[label="b* / 2"]; c[label="c* / 1"]; d[label=d]; e[label=e]; f[label="f* / 0"]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
-
-v : 3
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-v : 4
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-ret : 4
-
-digraph{ a[label="a* / 3"]; b[label="b* / 2"]; c[label="c* / 1"]; d[label=d]; e[label="e* / 4"]; f[label="f* / 0"]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
-
-v : 3
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-ret : 3
-
-digraph{ a[label="a* / 3"]; b[label="b* / 2"]; c[label="c* / 1"]; d[label="d* / 5"]; e[label="e* / 4"]; f[label="f* / 0"]; a -> d; a -> e; b -> a; b -> d; c -> b; e -> d; f -> c; rankdir=LR }
+digraph{ a[label="a* / 3"]; b[label="b* / 2"]; c[label="c* / 1"]; d[label="d* / 5"]; e[label="e* / 4"]; f[label="f* / 0"]; a -> d[color=yellow]; a -> e[color=yellow]; b -> a[color=blue]; b -> d[color=blue]; c -> b[color=green3]; e -> d[color=orange]; f -> c[color=red]; rankdir=LR }
 
 Le tri topologique de G_8_ARAS_non_DAG donne :
-
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; b -> c; c -> e; d -> e; e -> f; f -> g; g -> c; g -> h; rankdir=LR }
-
-v : 0
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-ret : 0
-
-digraph{ a[label="a* / 0"]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; b -> c; c -> e; d -> e; e -> f; f -> g; g -> c; g -> h; rankdir=LR }
-
-v : 1
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-ret : 1
-
-digraph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; b -> c; c -> e; d -> e; e -> f; f -> g; g -> c; g -> h; rankdir=LR }
-
-v : 2
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-v : 3
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-ret : 3
-
-digraph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label=c]; d[label="d* / 0"]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; b -> c; c -> e; d -> e; e -> f; f -> g; g -> c; g -> h; rankdir=LR }
-
-v : 2
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-v : 4
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-v : 5
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-v : 6
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
-v : 7
-    u : 0
-    u : 1
-    u : 2
-    u : 3
-    u : 4
-    u : 5
-    u : 6
-    u : 7
 LE GRAPHE COMPORTE DES CIRCUITS !
 
-digraph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label=c]; d[label="d* / 0"]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; b -> c; c -> e; d -> e; e -> f; f -> g; g -> c; g -> h; rankdir=LR }
+digraph{ a[label="a* / 0"]; b[label="b* / 1"]; c[label=c]; d[label="d* / 0"]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b[color=red]; b -> c; c -> e; d -> e; e -> f; f -> g; g -> c; g -> h; rankdir=LR }
 
 La multiplication matricielle donne ces étapes pour G_8_nonpond_S :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; b -> a; b -> c; b -> d; c -> b; c -> d; d -> b; d -> c; d -> e; d -> f; e -> d; f -> c; f -> d; f -> g; g -> f; g -> h; h -> g; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- b; b -- c; b -- d; c -- d; d -- e; d -- f; f -- g; g -- h; rankdir=LR }
+
+
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a[color=red]; a -- b; b -- b[color=red]; b -- c; b -- d; c -- c[color=red]; c -- d; d -- d[color=red]; d -- e; d -- f; e -- e[color=red]; f -- f[color=red]; f -- g; g -- g[color=red]; g -- h; h -- h[color=red]; rankdir=LR }
+
+
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c[color=green3]; a -- d[color=green3]; b -- b; b -- c; b -- d; b -- e[color=green3]; b -- f[color=green3]; c -- c; c -- d; c -- e[color=green3]; c -- f[color=green3]; d -- d; d -- e; d -- f; d -- g[color=green3]; e -- e; e -- f[color=green3]; f -- f; f -- g; f -- h[color=green3]; g -- g; g -- h; h -- h; rankdir=LR }
+
+
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; a -- e[color=blue]; a -- f[color=blue]; a -- g[color=blue]; b -- b; b -- c; b -- d; b -- e; b -- f; b -- g[color=blue]; b -- h[color=blue]; c -- c; c -- d; c -- e; c -- f; c -- g[color=blue]; c -- h[color=blue]; d -- d; d -- e; d -- f; d -- g; d -- h[color=blue]; e -- e; e -- f; e -- g[color=blue]; e -- h[color=blue]; f -- f; f -- g; f -- h; g -- g; g -- h; h -- h; rankdir=LR }
+
+
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; a -- e; a -- f; a -- g; a -- h[color=yellow]; b -- b; b -- c; b -- d; b -- e; b -- f; b -- g; b -- h; c -- c; c -- d; c -- e; c -- f; c -- g; c -- h; d -- d; d -- e; d -- f; d -- g; d -- h; e -- e; e -- f; e -- g; e -- h; f -- f; f -- g; f -- h; g -- g; g -- h; h -- h; rankdir=LR }
 
 Floyd-Warshall donne ces étapes pour G_8_nonpond_S_bis :
 

@@ -395,23 +395,21 @@ void parcours_profondeur_niveaux ( t_gra graphe , int depart )
 
 int cherche_sommet_sec_et_predecesseurs_mouilles ( t_gra graphe )
 {/* +/- 15 lignes. Il faudra retourner une valeur convenable. */
-  imprime_graphe(graphe,TOUTES_COULEURS,OUI);
-
   
   int u,v,toutPredecesseurMouille,pasDePredecesseur;
   for(v=0; v<taille_graphe(graphe);v++){
     if(!mouille(graphe,v)){
       toutPredecesseurMouille = 1;
       pasDePredecesseur = 1;
-      printf("v : %d\n",v);
+      //printf("v : %d\n",v);
       for(u=0;u<taille_graphe(graphe);u++){
-	printf("    u : %d\n",u);
+	//printf("    u : %d\n",u);
 	toutPredecesseurMouille = toutPredecesseurMouille
 	  && (!get_arc(graphe,u,v) || (mouille(graphe,u) && get_arc(graphe,u,v)));
 	pasDePredecesseur = pasDePredecesseur && !get_arc(graphe,u,v);
       }
       if(toutPredecesseurMouille || pasDePredecesseur){
-	printf("ret : %d\n",v);
+	//printf("ret : %d\n",v);
 	return v;
       }
     }
@@ -437,6 +435,8 @@ void tri_topologique ( t_gra graphe )
 	  if(sommet_get_poids(graphe,i)>=max){
 	    max = sommet_get_poids(graphe,i) + 1;
 	  }
+	  set_couleur_arc(graphe,i,sommet,sommet_get_poids(graphe,i)+1);
+	  
 	}
       }
       //on assigne un poids au sommet courant, et on le mouille
@@ -487,7 +487,51 @@ void tri_topologique ( t_gra graphe )
 
 void multiplie ( t_gra graphe )
      {
-	/* +/- 20 lignes */
+       int u,v,k,K=1;
+       t_gra copieGraphe = nouveau_graphe(taille_graphe(graphe));
+
+       definir_couleur(NOIR);
+       for(u=0; u<taille_graphe(copieGraphe);u++){
+	 for(v=0; v<taille_graphe(copieGraphe);v++){
+	   if(get_arc(graphe,u,v)){
+	     set_couleur_arc(graphe,u,v,la_couleur());
+	   }
+	 }
+       }
+	 
+       couleur_suivante();
+       fermeture_reflexive(graphe);
+       couleur_suivante();
+
+       
+       while(K<taille_graphe(graphe)-1){
+	 copie_graphe(graphe, copieGraphe);
+	 //chment couleur
+	
+	 K=K*2;
+	 
+	 //pour u
+	 for(u=0; u<taille_graphe(copieGraphe);u++){
+	   //printf("u : %d\n",u);
+	   //pour v
+	   for(v=0; v<taille_graphe(copieGraphe);v++){
+	     //printf("    v : %d\n",v);
+	     //on enlève les cas pas pertinent (reflexif et get_arc(u,v)=1)
+	     if(u!=v && !get_arc(graphe,u,v)){
+	       //pour k
+	       for(k=0; k<taille_graphe(copieGraphe);k++){
+		 //printf("        k : %d\n",k);
+		 //Si on peut créer un arc, on le fait
+		 if(get_arc(copieGraphe,u,k)*get_arc(copieGraphe,k,v)){
+		   set_arc(graphe,u,v,la_couleur());
+		   //printf("        YEAH\n");
+		 }
+	       }
+	     }
+	   }
+	 }
+	 couleur_suivante();
+       }
      }
 
 /* ------------------------------------------------------------ */
