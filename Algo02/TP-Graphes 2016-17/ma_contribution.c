@@ -506,7 +506,7 @@ void multiplie ( t_gra graphe )
        
        while(K<taille_graphe(graphe)-1){
 	 copie_graphe(graphe, copieGraphe);
-	 //chment couleur
+	 //chgment couleur
 	
 	 K=K*2;
 	 
@@ -541,9 +541,30 @@ void multiplie ( t_gra graphe )
    couleur d'arc pour marquer les nouvelles connaissances. */
 
 void floyd_warshall ( t_gra graphe )
-     {
-	/* +/- 15 lignes */
-     }
+{
+  /* +/- 15 lignes */
+  int u,v,k;
+  t_gra copieGraphe = nouveau_graphe(taille_graphe(graphe));
+
+  definir_couleur(ROUGE);
+  copie_graphe(graphe, copieGraphe);
+
+  //pour u
+  for(u=0; u<taille_graphe(copieGraphe);u++){
+    //pour v
+    for(v=0; v<taille_graphe(copieGraphe);v++){
+      //pour k
+      for(k=0; k<taille_graphe(copieGraphe);k++){
+	//Si on peut créer un arc, on le fait
+	if(get_arc(copieGraphe,u,k)*get_arc(copieGraphe,k,v)){
+	  set_arc(graphe,u,v,la_couleur());
+	}
+      }
+    }
+    couleur_suivante();
+    copie_graphe(graphe, copieGraphe);
+  }
+}
 
 /* ------------------------------------------------------------ */
 

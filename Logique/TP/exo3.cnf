@@ -1,0 +1,87 @@
+p cnf 12 37
+
+c     1) chaque sommet a au moins une couleur
+c     Sir OU Sib OU Siv
+
+1 2 3 0
+4 5 6 0
+7 8 9 0
+10 11 12 0
+
+c     2) chaque sommet a au plus une couleur
+c     Sir -->(!Siv ET ! Sib)
+c     Sib -->(!Siv ET ! Sir)
+c     Siv -->(!Sir ET ! Sib)
+
+-1 -2 0
+-1 -3 0
+-2 -3 0
+-4 -5 0
+-4 -6 0
+-5 -6 0
+-7 -8 0
+-7 -9 0
+-8 -9 0
+-10 -11 0
+-10 -12 0
+-11 -12 0
+
+c     3) pour tout couple (Si,Sj) voisins :
+c     Sir --> !Sjr
+c     Sib --> !Sjb
+c     Siv --> !Sjv
+
+c (S1,S2)
+-1 -4 0
+-2 -5 0
+-3 -6 0
+
+c (S1,S3)
+-1 -7 0
+-2 -8 0
+-3 -9 0
+
+c (S1,S4)
+-1 -10 0
+-2 -11 0
+-3 -12 0
+
+c (S2,S3)
+-4 -7 0
+-5 -8 0
+-6 -9 0
+
+c (S3,S4)
+-7 -10 0
+-8 -11 0
+-9 -12 0
+
+c (31 clauses jusqu'ici)
+
+c pour avoir toutes les combinaisons,
+c on enlève celles précédemment trouvées
+c avec minisat
+
+c 1ère combinaison :
+c {S1=V, S2=B, S3=R, S4=B}
+-3 -5 -7 -11 0
+
+c 2ème combinaison :
+c {S1=R, S2=V, S3=B, S4=V}
+-1 -6 -8 -12 0
+
+c 3ème combinaison :
+c {S1=B, S2=R, S3=V, S4=R}
+-2 -4 -9 -10 0
+
+c 4ème combinaison :
+c {S1=R, S2=B, S3=V, S4=B}
+-1 -5 -9 -11 0
+
+c 5ème combinaison :
+c {S1=V, S2=R, S3=B, S4=R}
+-3 -4 -8 -10 0
+
+c 6ème combinaison :
+c {S1=B, S2=V, S3=R, S4=V}
+-2 -6 -7 -12 0
