@@ -209,6 +209,21 @@ Floyd-Warshall donne ces étapes pour G_6_pond_NS_bis pondéré :
 
 digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
 
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; a -> c[color=blue,label=11]; a -> d[color=blue,label=6]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> a[color=blue,label=10]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; a -> c[label=11]; a -> d[label=6]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> a[label=10]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> a[color=yellow,label=15]; d -> b[color=yellow,label=12]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> a[color=yellow,label=18]; f -> b[color=yellow,label=15]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> a[color=orange,label=0]; a -> b[label=4]; a -> c[label=11]; a -> d[label=6]; a -> e[color=orange,label=14]; a -> f[color=orange,label=12]; b -> a[label=3]; b -> b[color=orange,label=0]; b -> c[label=7]; b -> d[label=2]; b -> e[color=orange,label=10]; b -> f[color=orange,label=8]; c -> a[label=10]; c -> b[label=7]; c -> c[color=orange,label=0]; c -> d[label=5]; c -> e[color=orange,label=13]; c -> f[label=4]; d -> a[label=15]; d -> b[label=12]; d -> c[label=5]; d -> d[color=orange,label=0]; d -> e[label=8]; d -> f[label=6]; e -> a[color=orange,label=23]; e -> b[color=orange,label=20]; e -> c[color=orange,label=13]; e -> d[label=8]; e -> e[color=orange,label=0]; e -> f[color=orange,label=14]; f -> a[label=18]; f -> b[label=15]; f -> c[label=8]; f -> d[label=6]; f -> e[color=orange,label=14]; f -> f[color=orange,label=0]; rankdir=LR }
+
 L'algorithme de Dijkstra donne ce graphe pour le départ 0 :
 
 digraph{ a[label="a* / 0"]; b[label="b* / 25"]; c[label="c* / 11"]; d[label="d* / 7"]; e[label="e* / 15"]; f[label="f* / 20"]; g[label="g* / 6"]; h[label="h* / 15"]; a -> c[color=red,label=11]; a -> d[color=red,label=7]; a -> g[color=red,label=6]; b -> e[label=20]; b -> f[label=9]; c -> a[label=11]; c -> b[label=20]; d -> e[color=red,label=8]; e -> b[color=red,label=10]; f -> h[label=5]; g -> a[label=6]; g -> h[color=red,label=9]; h -> f[color=red,label=5]; rankdir=LR }
@@ -223,15 +238,15 @@ digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f];
 
 Le graphe de flot donné :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label="0 / 21"]; a -> e[label="0 / 9"]; b -> c[label="0 / 18"]; b -> e[label="0 / 3"]; b -> f[label="0 / 1"]; c -> b[label="0 / 12"]; c -> d[label="0 / 7"]; c -> e[label="0 / 5"]; c -> f[label="0 / 6"]; c -> h[label="0 / 1"]; d -> c[label="0 / 5"]; d -> f[label="0 / 4"]; d -> g[label="0 / 2"]; d -> i[label="0 / 16"]; e -> b[label="0 / 2"]; e -> c[label="0 / 3"]; e -> f[label="0 / 12"]; e -> h[label="0 / 3"]; f -> c[label="0 / 5"]; f -> d[label="0 / 6"]; f -> e[label="0 / 12"]; f -> g[label="0 / 5"]; f -> h[label="0 / 4"]; g -> d[label="0 / 2"]; g -> f[label="0 / 5"]; g -> h[label="0 / 2"]; g -> i[label="0 / 9"]; h -> e[label="0 / 2"]; h -> g[label="0 / 3"]; h -> i[label="0 / 6"]; {rank=same;a}; {rank=same;b,e}; {rank=same;c,f,h}; {rank=same;d,g}; {rank=same;i} }
+digraph{ a[label="a*"]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label="0 / 21"]; a -> e[label="0 / 9"]; b -> c[label="0 / 18"]; b -> e[label="0 / 3"]; b -> f[label="0 / 1"]; c -> b[label="0 / 12"]; c -> d[label="0 / 7"]; c -> e[label="0 / 5"]; c -> f[label="0 / 6"]; c -> h[label="0 / 1"]; d -> c[label="0 / 5"]; d -> f[label="0 / 4"]; d -> g[label="0 / 2"]; d -> i[label="0 / 16"]; e -> b[label="0 / 2"]; e -> c[label="0 / 3"]; e -> f[label="0 / 12"]; e -> h[label="0 / 3"]; f -> c[label="0 / 5"]; f -> d[label="0 / 6"]; f -> e[label="0 / 12"]; f -> g[label="0 / 5"]; f -> h[label="0 / 4"]; g -> d[label="0 / 2"]; g -> f[label="0 / 5"]; g -> h[label="0 / 2"]; g -> i[label="0 / 9"]; h -> e[label="0 / 2"]; h -> g[label="0 / 3"]; h -> i[label="0 / 6"]; {rank=same;a}; {rank=same;i} }
 
 Le graphe résiduel et son meilleur chemin augmentant :
 
-graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; {rank=same;a}; {rank=same;b,e}; {rank=same;c,f,h}; {rank=same;d,g}; {rank=same;i} }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label=21]; a -> e[label=9]; b -> c[label=18]; b -> e[label=3]; b -> f[label=1]; c -> b[label=12]; c -> d[label=7]; c -> e[label=5]; c -> f[label=6]; c -> h[label=1]; d -> c[label=5]; d -> f[label=4]; d -> g[label=2]; d -> i[label=16]; e -> b[label=2]; e -> c[label=3]; e -> f[label=12]; e -> h[label=3]; f -> c[label=5]; f -> d[label=6]; f -> e[label=12]; f -> g[label=5]; f -> h[label=4]; g -> d[label=2]; g -> f[label=5]; g -> h[label=2]; g -> i[label=9]; h -> e[label=2]; h -> g[label=3]; h -> i[label=6]; {rank=same;a}; {rank=same;i} }
 
 Le graphe de flot final où les arcs saturés sont en rouge :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label="0 / 21"]; a -> e[label="0 / 9"]; b -> c[label="0 / 18"]; b -> e[label="0 / 3"]; b -> f[label="0 / 1"]; c -> b[label="0 / 12"]; c -> d[label="0 / 7"]; c -> e[label="0 / 5"]; c -> f[label="0 / 6"]; c -> h[label="0 / 1"]; d -> c[label="0 / 5"]; d -> f[label="0 / 4"]; d -> g[label="0 / 2"]; d -> i[label="0 / 16"]; e -> b[label="0 / 2"]; e -> c[label="0 / 3"]; e -> f[label="0 / 12"]; e -> h[label="0 / 3"]; f -> c[label="0 / 5"]; f -> d[label="0 / 6"]; f -> e[label="0 / 12"]; f -> g[label="0 / 5"]; f -> h[label="0 / 4"]; g -> d[label="0 / 2"]; g -> f[label="0 / 5"]; g -> h[label="0 / 2"]; g -> i[label="0 / 9"]; h -> e[label="0 / 2"]; h -> g[label="0 / 3"]; h -> i[label="0 / 6"]; {rank=same;a}; {rank=same;b,e}; {rank=same;c,f,h}; {rank=same;d,g}; {rank=same;i} }
+digraph{ a[label="a*"]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label="0 / 21"]; a -> e[label="0 / 9"]; b -> c[label="0 / 18"]; b -> e[label="0 / 3"]; b -> f[label="0 / 1"]; c -> b[label="0 / 12"]; c -> d[label="0 / 7"]; c -> e[label="0 / 5"]; c -> f[label="0 / 6"]; c -> h[label="0 / 1"]; d -> c[label="0 / 5"]; d -> f[label="0 / 4"]; d -> g[label="0 / 2"]; d -> i[label="0 / 16"]; e -> b[label="0 / 2"]; e -> c[label="0 / 3"]; e -> f[label="0 / 12"]; e -> h[label="0 / 3"]; f -> c[label="0 / 5"]; f -> d[label="0 / 6"]; f -> e[label="0 / 12"]; f -> g[label="0 / 5"]; f -> h[label="0 / 4"]; g -> d[label="0 / 2"]; g -> f[label="0 / 5"]; g -> h[label="0 / 2"]; g -> i[label="0 / 9"]; h -> e[label="0 / 2"]; h -> g[label="0 / 3"]; h -> i[label="0 / 6"]; {rank=same;a}; {rank=same;i} }
 
 
 Bye !

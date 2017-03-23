@@ -809,7 +809,7 @@ void floyd_warshall_pondere ( t_gra graphe )
 							else 
 							{	
 								imin = PLUS_INF;
-							}
+							} 
 
 							if (get_arc(graphest, k, j)) 
 							{
@@ -1112,21 +1112,21 @@ void dijkstra_maximise_le_min ( int depart , t_gra graphe , int table_predecesse
    Chaque arc modifié reçoit la couleur courante. */
 
 void calcule_residuel ( t_gra graphe_flot , t_gra graphe_residuel , int i , int j )
-     {
-			 int marge = 0;
+{
+	int marge = 0;
 
-			 	if(get_arc(graphe_flot, i, j))
-							marge = capacite_arc(graphe_flot, i, j) - poids_arc(graphe_flot, i, j);
+	if(get_arc(graphe_flot, i, j))
+				marge = capacite_arc(graphe_flot, i, j) - poids_arc(graphe_flot, i, j);
 
-				//Il faut prendre compte du flot en sens inverse
-				if(get_arc(graphe_flot, j, i))
-							marge = marge + poids_arc(graphe_flot, j, i);
+	//Il faut prendre compte du flot en sens inverse
+	if(get_arc(graphe_flot, j, i))
+		marge = marge + poids_arc(graphe_flot, j, i);
 
-				 if(marge)
-				 {
-					 set_arc_pondere(graphe_residuel, i, j, marge, NOIR);
-				 }
-			 }
+		if(marge)
+		{
+			set_arc_pondere(graphe_residuel, i, j, marge, NOIR);
+		}
+}
 
 void adapte_flot ( t_gra graphe_flot , int depuis , int vers , int valeur )
      {

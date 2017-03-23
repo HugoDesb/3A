@@ -108,7 +108,7 @@ void fermeture_reflexive_pondere ( t_gra graphe , int poids )
     assert(poids_ok(graphe,poids));
     if(poids_ok(graphe,poids) && graphe_pondere(graphe)){
         for(i=0;i<taille_graphe(graphe);i++){
-            set_arete_pondere(graphe, i,i, la_couleur(),poids);
+            set_arete_pondere(graphe, i,i,poids ,la_couleur());
         }
     }
 }
@@ -637,29 +637,52 @@ void multiplie_pondere ( t_gra graphe ) //DONE
 void floyd_warshall_pondere ( t_gra graphe )
 {
   /* +/- 15 lignes */
-  int u,v,k,taille=taille_graphe(graphe);
-  t_gra copieGraphe = nouveau_graphe_pondere(taille);
+  int u,v,k,mini,pdsuv,pdsuk,pdskv,taille=taille_graphe(graphe);
+  t_gra copieGraphe = nouveau_graphe_pondere(taille, POIDS_MIN, POIDS_MAX);
 
+
+  fermeture_reflexive_pondere(graphe,0);
   definir_couleur(ROUGE);
-  
   copie_graphe(graphe, copieGraphe);
 
-  //pour u
+
+  //pour k
   for(k=0; k<taille;k++){
-    //pour v
+    couleur_suivante();
+    //pour u
     for(u=0; u<taille;u++){
-      //pour k
+      //pour v
       for(v=0; v<taille;v++){
-	      //Si on peut créer un arc, on le fait
-        if(get_arc(copieGraphe,u,k)*get_arc(copieGraphe,k,v) 
-                  && !get_arc(graphe,u,v)){
-          set_arc(graphe,u,v,la_couleur());
+        if((u!=v) && (u!=k)){
+          //Si on peut créer un arc, on le fait
+          if(get_arc(copieGraphe,u,k) && get_arc(copieGraphe,k,v)){
+
+            if(get_arc(graphe,u,v)){
+              pdsuv = poids_arc(graphe,u,v);
+              pdsuk = poids_arc(graphe,u,k);
+              pdskv = poids_arc(graphe,k,v);
+
+              if(pdsuv > pdsuk + pdskv){
+                mini = pdsuk + pdskv;
+                set_arc_pondere(graphe,u,v,mini,la_couleur());
+              }
+
+            }else{
+
+              mini = poids_arc(copieGraphe,u,k)+poids_arc(copieGraphe,k,v);
+              set_arc_pondere(graphe,u,v,mini,la_couleur());
+
+            }
+
+          }
         }
       }
     }
+    
+    
     copie_graphe(graphe, copieGraphe);
-    couleur_suivante();
   }
+  couleur_suivante();
 }
 
 /* ------------------------------------------------------------ */
@@ -826,14 +849,52 @@ void dijkstra_maximise_le_min ( int depart , t_gra graphe , int table_predecesse
    Chaque arc modifié reçoit la couleur courante. */
 
 void calcule_residuel ( t_gra graphe_flot , t_gra graphe_residuel , int i , int j )
-     {
-	/* +/- 10 lignes */
-     }
+{
+  int flot=0,residuel;
+  /* +/- 10 lignes */
+  if(get_arc(graphe_flot,i,j)){
+    if(get_arc(graphe_flot,j,i)){
+      flot = poids_arc(graphe_flot,i,j) - poids_arc(graphe_flot,j,i);
+    }else{
+      flot = poids_arc(graphe_flot,i,j);
+    }
+    residuel = capacite_arc(graphe_flot,i,j) - flot;
+    if(residuel>0){
+      set_arc_pondere(graphe_residuel, i, j, residuel, NOIR);
+    }
+  }
+}
 
 void adapte_flot ( t_gra graphe_flot , int depuis , int vers , int valeur )
-     {
-	/* +/- 20 lignes */
-     }
+{
+  int marge,temp;
+  /* +/- 20 lignes */
+  // si on a des arcs de flot dans les deux sens
+  if(get_arc(graphe_flot,depuis,vers) && get_arc(graphe_flot,vers,depuis)){
+    marge = capacite_arc(graphe_flot,depuis,vers) 
+            - poids_arc(graphe_flot,depuis,vers);
+    if(marge>=valeur){
+      //on augmente poids arc de "valeur"
+      valeur = valeur + poids_arc(graphe_flot,depuis,vers);
+      set_arc_pondere(graphe_flot,depuis,vers,valeur,la_couleur());
+    }else{
+      //on augmente autant que possible f(u,v) puis on complète en diminuant f(v,u)
+      set_arc_pondere(graphe_flot,depuis,vers,capacite_arc(graphe_flot,depuis,vers),la_couleur());
+      
+      valeur = (valeur-marge) - poids_arc(graphe_flot,vers,depuis);
+      set_arc_pondere(graphe_flot,vers,depuis,valeur,la_couleur());
+    }
+  // si on a uniquement un arc de flot dans le sens depuis-->vers
+  }else if(get_arc(graphe_flot,depuis,vers)){
+    valeur = valeur + poids_arc(graphe_flot,depuis,vers);
+    set_arc_pondere(graphe_flot,depuis,vers,valeur,la_couleur());
+  // si on a uniquement un arc de flot dans le sens vers-->depuis
+  }else{
+    valeur = poids_arc(graphe_flot,depuis,vers) - valeur;
+    set_arc_pondere(graphe_flot,vers,depuis,valeur,la_couleur());
+  }
+
+}
 
 void ford_et_fulkerson ( void ) 
      {int i , j , sommet , taille , continuer , table_predecesseurs[ N ] ;
@@ -842,11 +903,11 @@ void ford_et_fulkerson ( void )
 
       /* Vérification de la forme du graphe. */
 
-/* Les 3 lignes suivantes sont à décommenter une fois les fonctions écrites.
+/* Les 3 lignes suivantes sont à décommenter une fois les fonctions écrites.*/
       assert( graphe_AR( G_9_flot ) ) ;
       assert( verifie_ponderation( G_9_flot ) ) ;
       parcours_profondeur_niveaux( G_9_flot , Sa ) ;
-*/
+
 /* Ces 2 lignes passent en commentaire au moment ou les précédentes sont activées. */
       for ( sommet = 1 ; sommet < taille ; sommet++ )
 	  sommet_set_poids( G_9_flot , sommet , 1 ) ;
