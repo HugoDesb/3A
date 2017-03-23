@@ -169,34 +169,28 @@ graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g
 
 Floyd-Warshall donne ces étapes pour G_8_nonpond_S_bis :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- b; b -- c; b -- d; c -- d; d -- e; d -- f; f -- g; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- b; b -- b[color=red]; b -- c; b -- d; c -- d; d -- e; d -- f; f -- g; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a[color=green3]; a -> b; a -> c[color=green3]; a -> d[color=green3]; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a[color=green3]; a -- b; a -- c[color=green3]; a -- d[color=green3]; b -- b; b -- c; b -- d; c -- c[color=green3]; c -- d; d -- d[color=green3]; d -- e; d -- f; f -- g; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a[color=blue]; b -> b[color=blue]; b -> c[color=blue]; b -> d[color=blue]; b -> e[color=blue]; b -> f[color=blue]; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; b -- b; b -- c; b -- d; c -- c; c -- d; d -- d; d -- e; d -- f; f -- g; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a[color=yellow]; c -> b[color=yellow]; c -> c[color=yellow]; c -> d[color=yellow]; c -> e[color=yellow]; c -> f[color=yellow]; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; a -- e[color=yellow]; a -- f[color=yellow]; b -- b; b -- c; b -- d; b -- e[color=yellow]; b -- f[color=yellow]; c -- c; c -- d; c -- e[color=yellow]; c -- f[color=yellow]; d -- d; d -- e; d -- f; e -- e[color=yellow]; e -- f[color=yellow]; f -- f[color=yellow]; f -- g; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a[color=orange]; d -> b[color=orange]; d -> c[color=orange]; d -> d[color=orange]; d -> e[color=orange]; d -> f[color=orange]; d -> g[color=orange]; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; a -- e; a -- f; b -- b; b -- c; b -- d; b -- e; b -- f; c -- c; c -- d; c -- e; c -- f; d -- d; d -- e; d -- f; e -- e; e -- f; f -- f; f -- g; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a[color=darkviolet]; e -> b[color=darkviolet]; e -> c[color=darkviolet]; e -> d[color=darkviolet]; e -> e[color=darkviolet]; e -> f[color=darkviolet]; e -> g[color=darkviolet]; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; a -- e; a -- f; a -- g[color=darkviolet]; b -- b; b -- c; b -- d; b -- e; b -- f; b -- g[color=darkviolet]; c -- c; c -- d; c -- e; c -- f; c -- g[color=darkviolet]; d -- d; d -- e; d -- f; d -- g[color=darkviolet]; e -- e; e -- f; e -- g[color=darkviolet]; f -- f; f -- g; g -- g[color=darkviolet]; g -- h; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a[color=gold]; f -> b[color=gold]; f -> c[color=gold]; f -> d[color=gold]; f -> e[color=gold]; f -> f[color=gold]; f -> g[color=gold]; f -> h[color=gold]; rankdir=LR }
-
-
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a; f -> b; f -> c; f -> d; f -> e; f -> f; f -> g; f -> h; g -> a[color=magenta]; g -> b[color=magenta]; g -> c[color=magenta]; g -> d[color=magenta]; g -> e[color=magenta]; g -> f[color=magenta]; g -> g[color=magenta]; g -> h[color=magenta]; rankdir=LR }
-
-
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a; f -> b; f -> c; f -> d; f -> e; f -> f; f -> g; f -> h; g -> a; g -> b; g -> c; g -> d; g -> e; g -> f; g -> g; g -> h; h -> a[color=grey]; h -> b[color=grey]; h -> c[color=grey]; h -> d[color=grey]; h -> e[color=grey]; h -> f[color=grey]; h -> g[color=grey]; h -> h[color=grey]; rankdir=LR }
+graph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -- a; a -- b; a -- c; a -- d; a -- e; a -- f; a -- g; a -- h[color=gold]; b -- b; b -- c; b -- d; b -- e; b -- f; b -- g; b -- h[color=gold]; c -- c; c -- d; c -- e; c -- f; c -- g; c -- h[color=gold]; d -- d; d -- e; d -- f; d -- g; d -- h[color=gold]; e -- e; e -- f; e -- g; e -- h[color=gold]; f -- f; f -- g; f -- h[color=gold]; g -- g; g -- h; h -- h[color=gold]; rankdir=LR }
 
 La multiplication donne ces étapes pour G_6_pond_NS pondéré :
 

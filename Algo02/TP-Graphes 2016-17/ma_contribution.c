@@ -544,30 +544,28 @@ void multiplie ( t_gra graphe ) //DONE
 void floyd_warshall ( t_gra graphe ) //BUG
 {
   /* +/- 15 lignes */
-  //imprime_graphe(graphe,TOUTES_COULEURS,OUI);
-  int u,v,k;
-  t_gra copieGraphe = nouveau_graphe(taille_graphe(graphe));
+  int u,v,k,taille=taille_graphe(graphe);
+  t_gra copieGraphe = nouveau_graphe(taille);
 
   definir_couleur(ROUGE);
-  couleur_suivante();
   
   copie_graphe(graphe, copieGraphe);
-  //imprime_graphe(copieGraphe,TOUTES_COULEURS,OUI);
 
   //pour u
-  for(u=0; u<taille_graphe(copieGraphe);u++){
+  for(k=0; k<taille;k++){
     //pour v
-    for(v=0; v<taille_graphe(copieGraphe);v++){
+    for(u=0; u<taille;u++){
       //pour k
-      for(k=0; k<taille_graphe(copieGraphe);k++){
-	//Si on peut créer un arc, on le fait
-	if(get_arc(copieGraphe,u,k)*get_arc(copieGraphe,k,v)){
-	  set_arc(graphe,u,v,la_couleur());
-	}
+      for(v=0; v<taille;v++){
+	      //Si on peut créer un arc, on le fait
+        if(get_arc(copieGraphe,u,k)*get_arc(copieGraphe,k,v) 
+                  && !get_arc(graphe,u,v)){
+          set_arc(graphe,u,v,la_couleur());
+        }
       }
     }
-    couleur_suivante();
     copie_graphe(graphe, copieGraphe);
+    couleur_suivante();
   }
 }
 
@@ -613,20 +611,19 @@ void multiplie_pondere ( t_gra graphe ) //DONE
     for(u=0; u<taille_graphe(copieGraphe);u++){
       //pour v
       for(v=0; v<taille_graphe(copieGraphe);v++){
-	//on enlève les cas pas pertinent (reflexif et get_arc(u,v)=1)
-	if(u!=v && !get_arc(graphe,u,v)){
-	  //pour k
-	  mini = PLUS_INF;
-	  for(k=0; k<taille_graphe(copieGraphe);k++){	    
-	    if(get_arc(copieGraphe,u,k) && get_arc(copieGraphe,k,v)){
-	      mini = min(poids_arc(graphe,u,k)+poids_arc(graphe,k,v),mini);
-	    }
-	  }
-	  if(mini != PLUS_INF){
-	    set_arc_pondere(graphe,u,v,mini,la_couleur());
-	  }
-	 
-	}
+	      //on enlève les cas pas pertinent (reflexif et get_arc(u,v)=1)
+        if(u!=v && !get_arc(graphe,u,v)){
+          //pour k
+          mini = PLUS_INF;
+          for(k=0; k<taille_graphe(copieGraphe);k++){	    
+            if(get_arc(copieGraphe,u,k) && get_arc(copieGraphe,k,v)){
+              mini = min(poids_arc(graphe,u,k)+poids_arc(graphe,k,v),mini);
+            }
+          }
+          if(mini != PLUS_INF){
+            set_arc_pondere(graphe,u,v,mini,la_couleur());
+          }        
+        }
       }
     }
     couleur_suivante();
@@ -638,9 +635,32 @@ void multiplie_pondere ( t_gra graphe ) //DONE
 /* La version pondérée de Floyd-Warshall. */
 
 void floyd_warshall_pondere ( t_gra graphe )
-     {
-	/* +/- 20 lignes */
-     }
+{
+  /* +/- 15 lignes */
+  int u,v,k,taille=taille_graphe(graphe);
+  t_gra copieGraphe = nouveau_graphe_pondere(taille);
+
+  definir_couleur(ROUGE);
+  
+  copie_graphe(graphe, copieGraphe);
+
+  //pour u
+  for(k=0; k<taille;k++){
+    //pour v
+    for(u=0; u<taille;u++){
+      //pour k
+      for(v=0; v<taille;v++){
+	      //Si on peut créer un arc, on le fait
+        if(get_arc(copieGraphe,u,k)*get_arc(copieGraphe,k,v) 
+                  && !get_arc(graphe,u,v)){
+          set_arc(graphe,u,v,la_couleur());
+        }
+      }
+    }
+    copie_graphe(graphe, copieGraphe);
+    couleur_suivante();
+  }
+}
 
 /* ------------------------------------------------------------ */
 
