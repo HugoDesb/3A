@@ -107,10 +107,18 @@ HAVING COUNT(NumVol) >= ALL(SELECT COUNT(NumVol)
                         FROM VOLS
                         GROUP BY NumPil);
 
-------------------------  Question 17  -----------------------------------------
-
+------------------------  Question 17  ------------??---------------------------
+SELECT DISTINCT numVol,NumCl 
+FROM RESERVATIONS 
+GROUP BY NumVol,NumCl
+HAVING NbPlaces = (SELECT MAX(NbPlaces) 
+                   FROM RESERVATIONS);
 
 ------------------------  Question 18  -----------------------------------------
+SELECT COUNT(NumAv)
+FROM AVIONS
+WHERE CapAv = Min(CapAv);
+
 ------------------------  Question 19  -----------------------------------------
 
 
