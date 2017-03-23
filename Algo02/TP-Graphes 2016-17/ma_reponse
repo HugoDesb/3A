@@ -172,32 +172,44 @@ Floyd-Warshall donne ces étapes pour G_8_nonpond_S_bis :
 digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a[color=red]; a -> b; a -> c[color=red]; a -> d[color=red]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> b; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a[color=green3]; b -> b[color=green3]; b -> c[color=green3]; b -> d[color=green3]; b -> e[color=green3]; b -> f[color=green3]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a[color=green3]; a -> b; a -> c[color=green3]; a -> d[color=green3]; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a[color=blue]; c -> b[color=blue]; c -> c[color=blue]; c -> d[color=blue]; c -> e[color=blue]; c -> f[color=blue]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a[color=blue]; b -> b[color=blue]; b -> c[color=blue]; b -> d[color=blue]; b -> e[color=blue]; b -> f[color=blue]; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a[color=yellow]; d -> b[color=yellow]; d -> c[color=yellow]; d -> d[color=yellow]; d -> e[color=yellow]; d -> f[color=yellow]; d -> g[color=yellow]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a[color=yellow]; c -> b[color=yellow]; c -> c[color=yellow]; c -> d[color=yellow]; c -> e[color=yellow]; c -> f[color=yellow]; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a[color=orange]; e -> b[color=orange]; e -> c[color=orange]; e -> d[color=orange]; e -> e[color=orange]; e -> f[color=orange]; e -> g[color=orange]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a[color=orange]; d -> b[color=orange]; d -> c[color=orange]; d -> d[color=orange]; d -> e[color=orange]; d -> f[color=orange]; d -> g[color=orange]; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a[color=darkviolet]; f -> b[color=darkviolet]; f -> c[color=darkviolet]; f -> d[color=darkviolet]; f -> e[color=darkviolet]; f -> f[color=darkviolet]; f -> g[color=darkviolet]; f -> h[color=darkviolet]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a[color=darkviolet]; e -> b[color=darkviolet]; e -> c[color=darkviolet]; e -> d[color=darkviolet]; e -> e[color=darkviolet]; e -> f[color=darkviolet]; e -> g[color=darkviolet]; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a; f -> b; f -> c; f -> d; f -> e; f -> f; f -> g; f -> h; g -> a[color=gold]; g -> b[color=gold]; g -> c[color=gold]; g -> d[color=gold]; g -> e[color=gold]; g -> f[color=gold]; g -> g[color=gold]; g -> h[color=gold]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a[color=gold]; f -> b[color=gold]; f -> c[color=gold]; f -> d[color=gold]; f -> e[color=gold]; f -> f[color=gold]; f -> g[color=gold]; f -> h[color=gold]; rankdir=LR }
 
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a; f -> b; f -> c; f -> d; f -> e; f -> f; f -> g; f -> h; g -> a; g -> b; g -> c; g -> d; g -> e; g -> f; g -> g; g -> h; h -> a[color=magenta]; h -> b[color=magenta]; h -> c[color=magenta]; h -> d[color=magenta]; h -> e[color=magenta]; h -> f[color=magenta]; h -> g[color=magenta]; h -> h[color=magenta]; rankdir=LR }
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a; f -> b; f -> c; f -> d; f -> e; f -> f; f -> g; f -> h; g -> a[color=magenta]; g -> b[color=magenta]; g -> c[color=magenta]; g -> d[color=magenta]; g -> e[color=magenta]; g -> f[color=magenta]; g -> g[color=magenta]; g -> h[color=magenta]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> a; a -> b; a -> c; a -> d; b -> a; b -> b; b -> c; b -> d; b -> e; b -> f; c -> a; c -> b; c -> c; c -> d; c -> e; c -> f; d -> a; d -> b; d -> c; d -> d; d -> e; d -> f; d -> g; e -> a; e -> b; e -> c; e -> d; e -> e; e -> f; e -> g; f -> a; f -> b; f -> c; f -> d; f -> e; f -> f; f -> g; f -> h; g -> a; g -> b; g -> c; g -> d; g -> e; g -> f; g -> g; g -> h; h -> a[color=grey]; h -> b[color=grey]; h -> c[color=grey]; h -> d[color=grey]; h -> e[color=grey]; h -> f[color=grey]; h -> g[color=grey]; h -> h[color=grey]; rankdir=LR }
 
 La multiplication donne ces étapes pour G_6_pond_NS pondéré :
 
 digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; c -> b[label=7]; c -> d[label=5]; c -> f[label=4]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> d[label=8]; f -> c[label=8]; f -> d[label=6]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; a -> c[color=green3,label=11]; a -> d[color=green3,label=6]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; b -> e[color=green3,label=10]; b -> f[color=green3,label=8]; c -> a[color=green3,label=10]; c -> b[label=7]; c -> d[label=5]; c -> e[color=green3,label=13]; c -> f[label=4]; d -> b[color=green3,label=12]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> c[color=green3,label=13]; e -> d[label=8]; e -> f[color=green3,label=14]; f -> b[color=green3,label=15]; f -> c[label=8]; f -> d[label=6]; f -> e[color=green3,label=14]; rankdir=LR }
+
+
+digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; a -> b[label=4]; a -> c[label=11]; a -> d[label=6]; a -> e[color=blue,label=14]; a -> f[color=blue,label=12]; b -> a[label=3]; b -> c[label=7]; b -> d[label=2]; b -> e[label=10]; b -> f[label=8]; c -> a[label=10]; c -> b[label=7]; c -> d[label=5]; c -> e[label=13]; c -> f[label=4]; d -> a[color=blue,label=15]; d -> b[label=12]; d -> c[label=5]; d -> e[label=8]; d -> f[label=6]; e -> a[color=blue,label=23]; e -> b[color=blue,label=20]; e -> c[label=13]; e -> d[label=8]; e -> f[label=14]; f -> a[color=blue,label=18]; f -> b[label=15]; f -> c[label=8]; f -> d[label=6]; f -> e[label=14]; rankdir=LR }
 
 Floyd-Warshall donne ces étapes pour G_6_pond_NS_bis pondéré :
 
@@ -205,11 +217,11 @@ digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f];
 
 L'algorithme de Dijkstra donne ce graphe pour le départ 0 :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> c[label=11]; a -> d[label=7]; a -> g[label=6]; b -> e[label=20]; b -> f[label=9]; c -> a[label=11]; c -> b[label=20]; d -> e[label=8]; e -> b[label=10]; f -> h[label=5]; g -> a[label=6]; g -> h[label=9]; h -> f[label=5]; rankdir=LR }
+digraph{ a[label="a* / 0"]; b[label="b* / 25"]; c[label="c* / 11"]; d[label="d* / 7"]; e[label="e* / 15"]; f[label="f* / 20"]; g[label="g* / 6"]; h[label="h* / 15"]; a -> c[color=red,label=11]; a -> d[color=red,label=7]; a -> g[color=red,label=6]; b -> e[label=20]; b -> f[label=9]; c -> a[label=11]; c -> b[label=20]; d -> e[color=red,label=8]; e -> b[color=red,label=10]; f -> h[label=5]; g -> a[label=6]; g -> h[color=red,label=9]; h -> f[color=red,label=5]; rankdir=LR }
 
 L'algorithme de Dijkstra donne ce graphe pour le départ 0 :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> c[label=11]; a -> g[label=6]; b -> e[label=20]; b -> f[label=9]; c -> a[label=11]; c -> b[label=20]; d -> e[label=8]; e -> b[label=10]; f -> e[label=5]; g -> a[label=6]; g -> g[label=9]; h -> d[label=12]; rankdir=LR }
+digraph{ a[label="a* / 0"]; b[label="b* / 31"]; c[label="c* / 11"]; d[label="d / +inf"]; e[label="e* / 45"]; f[label="f* / 40"]; g[label="g* / 6"]; h[label="h / +inf"]; a -> c[color=red,label=11]; a -> g[color=red,label=6]; b -> e[label=20]; b -> f[color=red,label=9]; c -> a[label=11]; c -> b[color=red,label=20]; d -> e[label=8]; e -> b[label=10]; f -> e[color=red,label=5]; g -> a[label=6]; g -> g[label=9]; h -> d[label=12]; rankdir=LR }
 
 Dijkstra qui maximise le minimum pour le départ 0 :
 
