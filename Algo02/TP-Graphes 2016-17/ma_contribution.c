@@ -746,10 +746,9 @@ int cherche_sec_sommet_min ( t_gra graphe )
 
 void relax ( t_gra graphe , int table_predecesseurs[ ] , int pred , int sommet )
 {
-	/* +/- 10 lignes */
   int distance = sommet_get_poids(graphe,pred) + poids_arc(graphe, pred, sommet);
   //sommet accepte pred comme nouveau prédecesseur
-	if(distance < sommet_get_poids(graphe,sommet)){
+  if(distance < sommet_get_poids(graphe,sommet)){
     if(table_predecesseurs[sommet]!=-1){
       definir_couleur(NOIR);
       set_couleur_arc(graphe,table_predecesseurs[sommet],sommet,la_couleur());
@@ -769,22 +768,16 @@ void dijkstra ( int depart , t_gra graphe , int table_predecesseurs[ ] )
   assert(verifie_ponderation(graphe));
 
   //Distances = +INFINI sauf départ
-  for(u=0;u<taille;u++){
-
-    sommet_set_poids(graphe,u,PLUS_INF);
-  }
-  sommet_set_poids(graphe,depart,0);
-  
   //Précédent départ = départ et reste a -1
   for(u=0;u<taille;u++){
+    sommet_set_poids(graphe,u,PLUS_INF);
     table_predecesseurs[u] = -1;
   }
+  sommet_set_poids(graphe,depart,0);
   table_predecesseurs[depart] = depart;
 
   u = cherche_sec_sommet_min(graphe);
   while(u!=-1){
-    
-
     for(v=0;v<taille;v++){
       if(get_arc(graphe,u,v) && !mouille(graphe,v)){
         relax(graphe,table_predecesseurs,u,v);
@@ -808,21 +801,88 @@ void dijkstra ( int depart , t_gra graphe , int table_predecesseurs[ ] )
    que certains sommets ne sont peut-être pas atteignables depuis le
    sommet de départ. */
 
-int cherche_sec_sommet_max ( t_gra graphe )
-    {/* +/- 10 lignes. Il faudra retourner une valeur convenable. */
-     return( 0 ) ; 
+int cherche_sec_sommet_max ( t_gra graphe ){
+  int u, maxi=MOINS_INF, sommet_max=-1;
+  for(u=0;u<taille_graphe(graphe);u++){
+    if(sommet_possede_poids(graphe,u)
+       && (sommet_get_poids(graphe,u)>maxi )
+       && !mouille(graphe, u)){
+      sommet_max = u;
+      maxi = sommet_get_poids(graphe,u);
     }
+  }
+  
+  if(sommet_max!=-1){
+    tremper(graphe,sommet_max);
+  }
+  
+  return( sommet_max ) ; 
+}
 
 void relax_maximise_le_min ( t_gra graphe , int table_predecesseurs[ ] ,
 			     int pred , int sommet , int depart )
-     {
-	/* +/- 10 lignes */
-     }
+{
+  printf("(%d,%d)\n--------",pred,sommet);
+  int distance;
+  if(pred==depart){
+    printf("\tP(%d,%d)=%d\n",pred,sommet,poids_arc(graphe,pred,sommet));
+    sommet_set_poids(graphe,sommet,poids_arc(graphe,pred,sommet));
+    table_predecesseurs[sommet] = pred;
+    definir_couleur(ROUGE);
+    set_couleur_arc(graphe, pred, sommet, la_couleur());
+
+  }else/* if(sommet_get_poids(graphe, sommet) == PLUS_INF){
+
+    distance = min(sommet_get_poids(graphe,sommet),poids_arc(graphe,pred,sommet));
+    sommet_set_poids(graphe,sommet,distance);
+    table_predecesseurs[sommet] = pred;
+    definir_couleur(ROUGE);
+    set_couleur_arc(graphe,pred,sommet,la_couleur());
+
+  }*/else{
+    printf("NIF?\n");
+    distance = min(sommet_get_poids(graphe,sommet),poids_arc(graphe,pred,sommet));
+    if(distance >= sommet_get_poids(graphe,sommet)){
+      if(table_predecesseurs[sommet]!=-1){
+        definir_couleur(NOIR);
+        set_couleur_arc(graphe,table_predecesseurs[sommet],sommet,la_couleur());
+      }
+      definir_couleur(ROUGE);
+      set_couleur_arc(graphe,pred,sommet,la_couleur());
+      sommet_set_poids(graphe,sommet,distance);
+      table_predecesseurs[sommet] = pred;
+    }
+
+  }
+}
 
 void dijkstra_maximise_le_min ( int depart , t_gra graphe , int table_predecesseurs[ ] )
-     {
-	/* +/- 20 lignes */
-     }
+{
+  int u,v,taille = taille_graphe(graphe);
+  //vérification des pondérations
+  assert(verifie_ponderation(graphe));
+
+  //Distances = +INFINI sauf départ
+  //Précédent départ = départ get_arcet reste a -1
+  for(u=0;u<taille;u++){
+    sommet_set_poids(graphe,u,PLUS_INF);
+    table_predecesseurs[u] = -1;
+  }
+  sommet_set_poids(graphe,depart,0);
+  table_predecesseurs[depart] = depart;
+
+  u = depart;
+  while(u!=-1){
+    for(v=0;v<taille;++v){
+      printf("BORDEL !!!!!\n");
+      if(get_arc(graphe,u,v) && !mouille(graphe,v)){
+        printf("Ici ?\n");
+        relax_maximise_le_min(graphe,table_predecesseurs,u,v,depart);
+      }
+    }
+    u = cherche_sec_sommet_max(graphe);
+  }
+}
 
 /* ------------------------------------------------------------ */
 

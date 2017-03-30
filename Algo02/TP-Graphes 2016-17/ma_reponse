@@ -234,19 +234,9 @@ digraph{ a[label="a* / 0"]; b[label="b* / 31"]; c[label="c* / 11"]; d[label="d /
 
 Dijkstra qui maximise le minimum pour le départ 0 :
 
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; a -> c[label=11]; a -> d[label=7]; a -> g[label=6]; b -> e[label=20]; b -> f[label=9]; c -> a[label=11]; c -> b[label=20]; d -> e[label=8]; e -> b[label=10]; f -> h[label=5]; g -> a[label=6]; g -> h[label=9]; h -> f[label=5]; rankdir=LR }
+digraph{ a[label="a* / 0"]; b[label="b* / +inf"]; c[label="c* / +inf"]; d[label="d* / +inf"]; e[label="e* / 20"]; f[label="f* / 9"]; g[label="g* / +inf"]; h[label="h* / 9"]; a -> c[label=11]; a -> d[label=7]; a -> g[label=6]; b -> e[color=red,label=20]; b -> f[color=red,label=9]; c -> a[label=11]; c -> b[label=20]; d -> e[label=8]; e -> b[label=10]; f -> h[label=5]; g -> a[label=6]; g -> h[color=red,label=9]; h -> f[label=5]; rankdir=LR }
 
 Le graphe de flot donné :
 
 digraph{ a[label="a*"]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label="0 / 21"]; a -> e[label="0 / 9"]; b -> c[label="0 / 18"]; b -> e[label="0 / 3"]; b -> f[label="0 / 1"]; c -> b[label="0 / 12"]; c -> d[label="0 / 7"]; c -> e[label="0 / 5"]; c -> f[label="0 / 6"]; c -> h[label="0 / 1"]; d -> c[label="0 / 5"]; d -> f[label="0 / 4"]; d -> g[label="0 / 2"]; d -> i[label="0 / 16"]; e -> b[label="0 / 2"]; e -> c[label="0 / 3"]; e -> f[label="0 / 12"]; e -> h[label="0 / 3"]; f -> c[label="0 / 5"]; f -> d[label="0 / 6"]; f -> e[label="0 / 12"]; f -> g[label="0 / 5"]; f -> h[label="0 / 4"]; g -> d[label="0 / 2"]; g -> f[label="0 / 5"]; g -> h[label="0 / 2"]; g -> i[label="0 / 9"]; h -> e[label="0 / 2"]; h -> g[label="0 / 3"]; h -> i[label="0 / 6"]; {rank=same;a}; {rank=same;i} }
 
-Le graphe résiduel et son meilleur chemin augmentant :
-
-digraph{ a[label=a]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label=21]; a -> e[label=9]; b -> c[label=18]; b -> e[label=3]; b -> f[label=1]; c -> b[label=12]; c -> d[label=7]; c -> e[label=5]; c -> f[label=6]; c -> h[label=1]; d -> c[label=5]; d -> f[label=4]; d -> g[label=2]; d -> i[label=16]; e -> b[label=2]; e -> c[label=3]; e -> f[label=12]; e -> h[label=3]; f -> c[label=5]; f -> d[label=6]; f -> e[label=12]; f -> g[label=5]; f -> h[label=4]; g -> d[label=2]; g -> f[label=5]; g -> h[label=2]; g -> i[label=9]; h -> e[label=2]; h -> g[label=3]; h -> i[label=6]; {rank=same;a}; {rank=same;i} }
-
-Le graphe de flot final où les arcs saturés sont en rouge :
-
-digraph{ a[label="a*"]; b[label=b]; c[label=c]; d[label=d]; e[label=e]; f[label=f]; g[label=g]; h[label=h]; i[label=i]; a -> b[label="0 / 21"]; a -> e[label="0 / 9"]; b -> c[label="0 / 18"]; b -> e[label="0 / 3"]; b -> f[label="0 / 1"]; c -> b[label="0 / 12"]; c -> d[label="0 / 7"]; c -> e[label="0 / 5"]; c -> f[label="0 / 6"]; c -> h[label="0 / 1"]; d -> c[label="0 / 5"]; d -> f[label="0 / 4"]; d -> g[label="0 / 2"]; d -> i[label="0 / 16"]; e -> b[label="0 / 2"]; e -> c[label="0 / 3"]; e -> f[label="0 / 12"]; e -> h[label="0 / 3"]; f -> c[label="0 / 5"]; f -> d[label="0 / 6"]; f -> e[label="0 / 12"]; f -> g[label="0 / 5"]; f -> h[label="0 / 4"]; g -> d[label="0 / 2"]; g -> f[label="0 / 5"]; g -> h[label="0 / 2"]; g -> i[label="0 / 9"]; h -> e[label="0 / 2"]; h -> g[label="0 / 3"]; h -> i[label="0 / 6"]; {rank=same;a}; {rank=same;i} }
-
-
-Bye !

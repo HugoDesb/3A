@@ -1,0 +1,34 @@
+homme(leon).
+homme(pierre).
+homme(jean).
+homme(jacques).
+homme(paul).
+homme(alain).
+homme(luc).
+
+femme(claire).
+femme(andree).
+femme(lucie).
+femme(martine).
+
+pere(paul,luc).
+mere(martine,luc).
+pere(jean,paul).
+mere(lucie,paul).
+pere(jean,alain).
+mere(lucie,alain).
+pere(leon,lucie).
+mere(claire,lucie).
+pere(pierre,jean).
+mere(andree,jean).
+pere(pierre,jacques).
+mere(andree,jacques).
+
+enfant(X,Y) :- pere(Y,X).
+enfant(X,Y) :- mere(Y,X).
+
+fils(X,Y) :- homme(X),enfant(X,Y).
+
+fille(X,Y) :- femme(X),enfant(X,Y).
+
+frere-ou-soeur(X,Y) :-

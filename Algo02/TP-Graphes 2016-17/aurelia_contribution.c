@@ -990,65 +990,65 @@ void dijkstra ( int depart , t_gra graphe , int table_predecesseurs[ ] )
    sommet de départ. */
 
 int cherche_sec_sommet_max ( t_gra graphe )
-    {
-		 int taille = taille_graphe(graphe);
- 		 int i, umax = -1, pdsmax = MOINS_INF;
+{
+  int taille = taille_graphe(graphe);
+  int i, umax = -1, pdsmax = MOINS_INF;
 
  		
- 		 for (i = 0; i < taille; i++)
- 		 {
+  for (i = 0; i < taille; i++)
+    {
  		
- 		 	if(sommet_possede_poids(graphe, i) && sommet_get_poids(graphe, i) < PLUS_INF)
- 			{
+      if(sommet_possede_poids(graphe, i) && sommet_get_poids(graphe, i) < PLUS_INF)
+	{
  				
- 				if(sommet_get_poids(graphe, i) > pdsmax && !mouille(graphe, i))
- 				{
- 					umax = i;
- 					pdsmax = sommet_get_poids(graphe, i);
- 				}
- 			}
- 		 }
- 		 return umax;
+	  if(sommet_get_poids(graphe, i) > pdsmax && !mouille(graphe, i))
+	    {
+	      umax = i;
+	      pdsmax = sommet_get_poids(graphe, i);
+	    }
+	}
+    }
+  return umax;
     }
 
 void relax_maximise_le_min ( t_gra graphe , int table_predecesseurs[ ] ,
 			     int pred , int sommet , int depart )
-     {
-			 int mini, mini2, maxi;
+{
+  int mini, mini2, maxi;
 
-			 if(pred == depart)
-			 {
-				 sommet_set_poids(graphe, sommet, poids_arc(graphe, pred, sommet));
-				 table_predecesseurs[sommet] = pred;
-				 set_couleur_arc(graphe, pred, sommet, la_couleur());
-			 }
-			 else if (sommet_get_poids(graphe, sommet) == PLUS_INF)
-			 {
-				 mini2 = min(poids_arc(graphe, pred, sommet), sommet_get_poids(graphe, pred));
-				 sommet_set_poids(graphe, sommet, mini2);
-				 table_predecesseurs[sommet] = pred;
-				 set_couleur_arc(graphe, pred, sommet, la_couleur());
-			 }
-			 else
-			 {
-				 mini = min(poids_arc(graphe, pred, sommet), sommet_get_poids(graphe, pred));
-				 maxi = max(mini, sommet_get_poids(graphe, sommet));
+  if(pred == depart)
+    {
+      sommet_set_poids(graphe, sommet, poids_arc(graphe, pred, sommet));
+      table_predecesseurs[sommet] = pred;
+      set_couleur_arc(graphe, pred, sommet, la_couleur());
+    }
+  else if (sommet_get_poids(graphe, sommet) == PLUS_INF)
+    {
+      mini2 = min(poids_arc(graphe, pred, sommet), sommet_get_poids(graphe, pred));
+      sommet_set_poids(graphe, sommet, mini2);
+      table_predecesseurs[sommet] = pred;
+      set_couleur_arc(graphe, pred, sommet, la_couleur());
+    }
+  else
+    {
+      mini = min(poids_arc(graphe, pred, sommet), sommet_get_poids(graphe, pred));
+      maxi = max(mini, sommet_get_poids(graphe, sommet));
 
-				 if(maxi != sommet_get_poids(graphe, sommet))
-				 {
-					 sommet_set_poids(graphe, sommet, maxi);
+      if(maxi != sommet_get_poids(graphe, sommet))
+	{
+	  sommet_set_poids(graphe, sommet, maxi);
 
 					
-					 if(table_predecesseurs[sommet] != -1)
-					 {
-						 set_couleur_arc(graphe, table_predecesseurs[sommet], sommet, NOIR);
-					 }
+	  if(table_predecesseurs[sommet] != -1)
+	    {
+	      set_couleur_arc(graphe, table_predecesseurs[sommet], sommet, NOIR);
+	    }
 				
-					 table_predecesseurs[sommet] = pred;
-					 set_couleur_arc(graphe, pred, sommet, la_couleur());
-				 }
-			 }
-     }
+	  table_predecesseurs[sommet] = pred;
+	  set_couleur_arc(graphe, pred, sommet, la_couleur());
+	}
+    }
+}
 
 void dijkstra_maximise_le_min ( int depart , t_gra graphe , int table_predecesseurs[ ] )
      {
