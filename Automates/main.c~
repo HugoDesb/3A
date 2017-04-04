@@ -1,0 +1,192 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+
+
+
+
+
+
+
+
+
+
+
+FILE *source;
+FILE *target = NULL;
+
+
+char c;
+enum TokenType {MOTCLE, SECTION, SSECTION, LIGNEVIDE, MOT, FIN} tokenType;
+char tokenValue[50];
+char title[4] = "itre";
+char author[5] = "uteur";
+
+int main(int argc, char const *argv[]);
+int isText(char c);
+int isTitle(char c, int rank);
+int isAuthor(char c, int rank);
+int isTitleOrAuthor(char c);
+int scanner();
+
+
+
+int main(int argc, char const *argv[]){
+  // Ouvre le fichier test.txt en lecture seulement (le fichier doit exister) :
+  source = fopen("test.txt", "r");
+  // Cree et ouvre un fichier tmp.html en lecture/ecriture,
+  // avec suppression du contenu au prealable :
+  target = fopen("target.html", "w+");
+
+  if (source == NULL) {
+    printf("Impossible d'ouvrir le fichier source\n");
+    return -1;
+  }
+  
+  if (target == NULL) {
+    printf("Impossible d'ouvrir le fichier target\n");
+    return -1;
+  }
+  
+  c = fgetc(source); // lecture du caractere suivant du fichier source
+  while(c!=EOF) { // tant que la fin du fichier n'est pas atteinte
+    fputc(c,target); // ecrire c dans le fichier target
+    c = fgetc(source); // lecture du caractere suivant du fichier source
+    
+  }
+  
+  if (source != NULL) {fclose(source);} // fermeture du fichier source
+  if (target != NULL) {fclose(target);} // fermeture du fichier target
+
+  return 0;
+}
+
+
+int scanner(){
+
+  c = fgetc(source);
+
+ qI :
+  if(c=='\t'){goto qI;}
+  if(c==' '){goto qI;}
+  if(c=='\n'){goto qI_qL1;}
+  if(c=='>'){goto qMC1;}
+  if(c=='+'){goto qS;}
+  if(c==EOF){goto qF1;}
+  if(isText(c)){goto qM;}
+  return 0;
+  
+ qI_qL1:
+  if(c=='\t'){goto qI_qL1;}
+  if(c==' '){goto qI_qL1;}
+  if(c=='\n'){goto qI_qL1_qL2;}
+  if(c=='>'){goto qMC1;}
+  if(c=='+'){goto qS;}
+  if(c==EOF){goto qF1;}
+  if(isText(c)){goto qM;}
+  return 0;
+
+ qI_qL1_qL2:
+  if(c=='\t'){goto qI_qL1_qL2;}
+  if(c==' '){goto qI_qL1_qL2;}
+  if(c=='\n'){goto qI_qL1_qL2;}
+  if(c=='>'){goto qLF;}
+  if(c=='+'){goto qLF;}
+  if(c==EOF){goto qF1;}
+  if(isText(c)){goto qLF;}
+  return 0;
+
+ qMC1:
+  if(isTitleOrAuthor(c)){goto qMC2;}
+  return 0;
+
+ qS:
+  if(c=='\t'){goto qSF;}
+  if(c==' '){goto qSF;}
+  if(c=='\n'){goto qSF;}
+  if(c=='+'){goto qSS;}
+  if(c==EOF){goto qSF;}
+  return 0;
+
+ qM:
+  if(c=='\t'){goto qMF;}
+  if(c==' '){goto qMF;}
+  if(c=='\n'){goto qMF;}
+  if(c==EOF){goto qMF;}
+  if(isText(c)){goto qM;}
+  return 0;
+
+ qMC2:
+  if(c=='\t'){goto qMCF;}
+  if(c==' '){goto qMCF;}
+  if(c=='\n'){goto qMCF;}
+  if(c==EOF){goto qMCF;}
+  return 0;
+  
+ qSS:
+  if(c=='\t'){goto qSSF;}
+  if(c==' '){goto qSSF;}
+  if(c=='\n'){goto qSSF;}
+  if(c==EOF){goto qSSF;}
+  return 0;
+
+ qLF:qF1:qSF:qMF:qMCF:qSSF: return 1;
+  
+}
+
+
+
+
+
+
+
+/*------------------------------------------------------------------*/
+/*                              TOOLS                               */
+/*------------------------------------------------------------------*/
+int isText(char c){
+  return (c>='a' && c<='z')
+    || (c>='A' && c<='Z')
+    || (c>='0' && c<='9')
+    || (c=='.')
+    || (c=='?')
+    || (c=='!')
+    || (c==',')
+    || (c==';')
+    || (c==':');
+}
+
+int isTitle(char c, int rank){
+  if(rank == 4){
+    return 1;
+  }else if(c==title[rank]){
+    c = fgetc(source);
+    return isTitle(c, rank++);
+  }else{
+    return 0;
+  }
+}
+int isAuthor(char c, int rank){
+  if(rank == 5){
+    return 1;
+  }else if(c==author[rank]){
+    c = fgetc(source);
+    return isAuthor(c, rank++);
+  }else{
+    return 0;
+  }
+}
+
+int isTitleOrAuthor(char c){
+  if(c=='t' ){
+    c = fgetc(source);
+    return isTitle(c,0);
+  }
+  if(c=='a'){
+    c = fgetc(source);
+    return isAuthor(c,0);
+  }
+  return 0;
+}
+
