@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+class Complexe{
+ private:
+  double a,b,module,argument;
+  void majModuleArgument();
+
+ public:
+  /* LABAZ */
+  Complexe(double, double);
+  ~Complexe(void);
+
+  /* METHODES */
+  Complexe addition(Complexe);
+  void modifier(void);
+  void afficher(void);
+  Complexe multiplication(Complexe);
+
+  /* ACCESSEURS */
+  double get_a(void);
+  double get_b(void);
+  double get_module(void);
+  double get_argument(void);
+  
+};
+
+
+
+

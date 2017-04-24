@@ -1,0 +1,57 @@
+#include <iostream>
+#include "complexe.h"
+#include "math.h"
+
+using namespace std;
+
+
+
+
+Complexe::Complexe(double a = 0, double b = 0){
+  this->a = a;
+  this->b = b;
+  //module=(a*a+b*b)**(1/2)
+  this->module = sqrt((a*a+b*b));
+  //argument= arctan(b/a)
+  this->argument=atan2(b,a);
+}
+
+Complexe::~Complexe(void){
+  cout << "Passage dans le destructeur" << endl;
+}
+
+
+Complexe Complexe::addition(Complexe z1){
+  this->a = z1.get_a()+this->a;
+  this->b = z1.get_b()+this->b;
+  return this;
+}
+
+void Complexe::modifier(void){
+  cout << "Entrez la partie réelle" << endl;
+  cin >> this->a;
+  cout << "Entrez la partie imaginaire" << endl;
+  cin >> this->b;
+
+  //module=(a*a+b*b)**(1/2)
+  this->module = sqrt((this->a*this->a+this->b*this->b));
+  //argument= arctan(b/a)
+  this->argument=atan2(this->b,this->a);
+  
+}
+
+void Complexe::afficher(void){
+  cout << "z = " << this->a << "+"<< this->b << "i" <<endl;
+}
+
+
+/***********************************/
+/*           ACCESSEURS            */
+/***********************************/
+
+double Complexe::get_a(void){
+  return this->a;
+}
+double Complexe::get_b(void){
+  return this->b;
+}

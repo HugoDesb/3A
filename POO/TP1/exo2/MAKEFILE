@@ -1,0 +1,15 @@
+main: main.o
+	g++ -o main  main.o
+
+main.o: complexe.o
+	g++ -o main.o -c  main.cpp complexe.o
+
+complexe.o:
+	g++ -c complexe.cpp
+
+
+clean:
+	rm -rf *.o
+
+mrproper: clean
+	rm -rf hello

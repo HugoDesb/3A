@@ -1,0 +1,2 @@
+parcours([])
+parcours([X|Y]):- write(X), Y\=[].
