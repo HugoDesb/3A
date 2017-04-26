@@ -1,0 +1,8 @@
+main: main.o vector.o
+	g++ -o main  main.o vector.o
+
+main.o: main.cpp vector.o
+	g++ -o main.o -c main.cpp vector.o
+
+vector.o: vector.cpp
+	g++ -o vector.o -c vector.cpp 
