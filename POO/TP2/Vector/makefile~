@@ -1,0 +1,15 @@
+all: main.o vector.o
+	g++ vector.o main.o -o run
+
+vector.o: vector.cpp vector.h
+	g++ vector.cpp -c
+
+main.o: main.cpp
+	g++ main.cpp -c
+
+run: all
+	clear
+	./run
+
+clean: 
+	rm *.o

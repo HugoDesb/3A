@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+
+class Vector {
+
+
+public :
+	//Contructeurs
+	Vector (const int taille);
+	Vector (const Vector &x);
+
+	//Destructeur
+	virtual ~Vector(void);
+
+	//Fonctions
+	virtual void afficher() const;
+	void afficher_acces() const;
+	void afficher_glob_acces() const;
+	void adjust_size(const int newTaille);
+	int get_item(int pos);
+	void set_item(int pos, int value);
+
+	//Opérateurs
+	Vector & operator = (const Vector &x);
+	int & operator [] (int pos);
+
+private:
+	int _taille;
+	int *_ptr;
+
+	int _nb_set;
+	int _nb_get;
+
+	static int nb_glob_set;
+	static int nb_glob_get;
+
+};
+
+
+class Vector15 : public Vector {
+
+public:
+	//Constructeurs
+	Vector15(void) : Vector(15){
+		cout << "Constructeur" << endl;
+	}
+
+	Vector15(const Vector15 &x) : Vector(x){
+		cout << "Constructeur par recopie" << endl;
+	}
+
+	//Destructeur
+	~Vector15(void) {
+		cout << "Destruction d'un Vector15" << endl;
+	}
+
+	/*void afficher() const {
+		cout << "Oui le Vector15" << endl;
+	}*/
+
+private:
+
+	void adjust_size(const int newTaille);
+
+};
