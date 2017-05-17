@@ -8,33 +8,32 @@ using namespace std;
 
 template <typename T>
 class ElementGen{
-  
-  private:
-    T value;
-    ElementGen<T> * prec;
 
 
   public:
+    T value;
+    ElementGen<T> * prec;
     /***********************************/
     /*              LABAZ              */
     /***********************************/
-    ElementGen(const T, const ElementGen<T> * prec = NULL);
+    ElementGen(const T, ElementGen<T> * prec = NULL);
     ~ElementGen(void);
 
     void print(void);
+
 };
 
 
 template <typename T>
-ElementGen<T>::ElementGen(const T val, const ElementGen<T> *prec){
+ElementGen<T>::ElementGen(const T val, ElementGen<T> *prece){
   this->value = val;
-  this->prec = prec;
+  this->prec = prece;
 }
 
 
 template <typename T>
 ElementGen<T>::~ElementGen(void){
-  cout << "DESTRUCTION MOTHERFUCKER !!!" << endl;
+  cout << "DESTRUCTION ELEMENT MOTHERF**KER !!!" << endl;
 }
 
 template <typename T>

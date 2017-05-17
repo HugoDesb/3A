@@ -1,3 +1,6 @@
+all: main clean
+
+
 main: main.o
 	g++ -o main main.o
 
@@ -9,3 +12,9 @@ ElementGen.gch: PileGen.gch
 
 PileGen.gch: 
 	g++ -o PileGen.gch -c PileGen.h
+
+
+clean : 
+	rm *.o
+	rm *.gch
+	echo Clean Done
