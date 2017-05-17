@@ -31,8 +31,7 @@ class PileGen{
     T pop(void);
     int estVide(void);
     T top(void);
-    void print(void);
-   void afficher(ostream & out = cout) const ;
+    void afficher(ostream & out = cout) const ;
 
     /***********************************/
     /*             OPERATOR            */
@@ -97,12 +96,6 @@ int PileGen<T>::estVide(void){
 template <typename T>
 T PileGen<T>::top(void){
   return (*this->ptr).value;
-}
-
-template <typename T>
-void PileGen<T>::print(void){
-  cout << "Stack : " << name << endl << " > " ;
-  (*this->ptr).print();
 }
 
 template <typename T>
